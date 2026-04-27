@@ -1,0 +1,92 @@
+<!-- Puerta-Umbral.html -->
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Puerta · Umbral</title>
+  
+  <link rel="stylesheet" href="css/core.css" />
+  <link rel="stylesheet" href="css/Puerta-Umbral.css" />
+   <link rel="stylesheet" href="css/FiltroMadre.css" />
+   <link rel="stylesheet" href="css/umbral.css" />
+
+  <!-- (Opcional) Fuente sistema, coherente con tu línea -->
+  <meta name="color-scheme" content="dark light" />
+</head>
+
+<body class="walk door door--Umbral">
+  <main class="stage" aria-label="Puerta Umbral">
+    <!-- Fondo (letterbox) + imagen 16:9 -->
+    <figure class="frame" id="frame" aria-label="Imagen principal con lupa">
+      <!-- Sustituye el src por tu imagen -->
+      <img
+        id="UmbralImg"
+        class="frame__img"
+        src="graficos/PUERTAS/LaReinaDelCielo.jpg"
+        alt="Puerta Umbral (imagen)"
+        draggable="false"
+      />
+
+      <!-- Indicador sutil -->
+      <div class="hint" aria-hidden="true">
+        <span class="hint__dot"></span>
+        <span class="hint__text">mueve el cursor / toca para ver detalles</span>
+      </div>
+
+      <!-- Lupa -->
+      <div class="loupe" id="loupe" aria-hidden="true"></div>
+
+      <!-- Overlay UI -->
+      <header class="ui ui--top">
+        <div class="ui__left">
+          <a class="ui__back" href="index.html" title="Volver">↩</a>
+        </div>
+        <div class="ui__right">
+          <!-- Toggle lupa -->
+          <button class="ui__btn" id="toggleLoupe" type="button" aria-pressed="true">
+            Lupa
+          </button>
+
+          <!-- Link estratégico (pon tu URL cuando la tengas) -->
+          <a class="ui__btn ui__btn--door" id="goGallery" href="#" target="_blank" rel="noopener">
+            Ir a la galería
+          </a>
+        </div>
+      </header>
+      
+     
+
+      <footer class="ui ui--bottom" aria-label="Información">
+        <div class="caption">
+          <span class="caption__title">PUERTA · UMBRAL</span>
+          <span class="caption__sep">·</span>
+          <span class="caption__meta">16:9 · zoom</span>
+        </div>
+      </footer>
+       <!-- Mapa-Link -->
+      <div class="choice-link">
+        <a href="Mapa-TheWalk.html" class="choice-link__a">
+          Elige dónde quieres ir ahora
+        </a>
+      </div>
+    </figure>
+  </main>
+
+  <div class="umbral-badge" aria-hidden="true">
+  UMBRAL <span data-umbral-readout>…</span>
+  </div>
+
+  <script src="js/Puerta-Umbral.js" defer></script>
+  <script src="js/thewalk-umbral-core.js" defer></script>
+
+ <script>
+   function inhabilitar(){
+          alert ("Obra creada por Acebuch bajo Licencia de copyright.")
+          return false
+      }
+      document.oncontextmenu = inhabilitar
+  </script>
+ 
+</body>
+</html>

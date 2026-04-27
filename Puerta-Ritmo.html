@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Puerta · Ritmo</title>
+
+  <link rel="stylesheet" href="css/core.css" />
+  <link rel="stylesheet" href="css/FiltroMadre.css" />
+  <link rel="stylesheet" href="css/Puerta-Ritmo.css" />
+  <link rel="stylesheet" href="css/umbral.css" />
+</head>
+
+<body class="ritmo">
+
+  <main class="piano" aria-label="Piano cromático 9×9">
+
+   <header class="ritmo-neon" aria-hidden="true">
+  <p class="neonJazzSession">STARLING MUSIC SESSION</p>
+   </header>
+
+    <!-- 81 teclas: primera y última blancas -->
+    <!-- (si prefieres otros textos, cambia CLICK / PARAR y data-stack) -->
+
+    <!-- fila 1 -->
+    <a class="key key--white" id="keyStart" href="#" aria-label="Iniciar compás">
+      <span class="key__label" data-stack="">ON</span>
+    </a>
+    <a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a>
+
+    <!-- fila 2 -->
+    <a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a>
+
+    <!-- fila 3 -->
+    <a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a>
+
+    <!-- fila 4 -->
+    <a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a>
+
+    <!-- fila 5 -->
+    <a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a>
+
+    <!-- fila 6 -->
+    <a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a>
+
+    <!-- fila 7 -->
+    <a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a>
+
+    <!-- fila 8 -->
+    <a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a>
+
+    <!-- fila 9 -->
+    <a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a><a class="key"></a>
+    <a class="key key--white" id="keyStop" href="#" aria-label="Detener compás y reordenar color">
+      <span class="key__label" data-stack="">STOP</span>
+    </a>
+
+<!-- POPUP (aparece al pulsar STOP) -->
+<div class="popup" id="ritmoPopup" role="dialog" aria-modal="true" aria-labelledby="popupTitle" hidden>
+  <div class="popup__backdrop" data-popup-close></div>
+
+  <div class="popup__panel">
+    <p class="popup__kicker">THE WALK</p>
+    <h2 class="popup__title" id="popupTitle">Puerta · Ritmo</h2>
+    <p class="popup__text"> ¿Dónde quieres ir ahora?</p>
+
+ <nav class="popup__actions" aria-label="Modos de ritmo">
+  <button class="popup__btn" data-mode="single">Single</button>
+  <button class="popup__btn" data-mode="chord">Chord</button>
+  <button class="popup__btn" data-mode="wave">Wave</button>
+  <button class="popup__btn" data-mode="columns">Columns</button>
+  <button class="popup__btn popup__btn--accent" data-mode="audio">Audio</button>
+</nav>
+
+
+<nav class="popup__actions" aria-label="Acciones">
+      <a class="popup__btn" href="Mapa-TheWalk.html">Volver al Mapa</a>
+      <a class="popup__btn popup__btn--ghost" href="index.html">Empezar</a>
+      <a class="popup__btn" href="Partitura-III-LosEstorninos.html">Volver a partituras</a>
+      <a class="popup__btn" href="IChing.html">Abrir el I Ching</a>
+      <a class="popup__btn-salto" href="Puerta-Umbral-LosEstorninos.html">SALTO</a>
+</nav>
+
+    <button class="popup__close" type="button" data-popup-close aria-label="Cerrar">×</button>
+  </div>
+</div>
+
+  </main>
+
+  <button id="abrir-audio" class="tw-audio-btn">
+Escuchar piezas
+ </button>
+
+<div id="tw-audio-modal" class="tw-audio-modal" hidden>
+
+  <div class="tw-audio-panel">
+
+    <button id="cerrar-audio" class="tw-audio-close">×</button>
+
+    <h2>Piezas sonoras</h2>
+
+    <ul id="tw-audio-list"></ul>
+
+    <audio id="tw-audio-player" controls preload="none"></audio>
+
+  </div>
+
+</div>
+ 
+
+ <script src="js/Puerta-Ritmo.js" defer></script>
+ <script src="js/thewalk-umbral-core.js" defer></script>
+
+<script>
+   function inhabilitar(){
+          alert ("Obra creada por Acebuch bajo Licencia de copyright.")
+          return false
+      }
+      document.oncontextmenu = inhabilitar
+  </script>
+ 
+</body>
+</html>
+
+
+ <script

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ritmo 1 Los estorninos</title>
+  <link rel="stylesheet" href="css/ritmo-1-LosEstorninos.css" />
+</head>
+<body>
+
+  <div id="ui">
+    <button id="startButton">Activar sonido</button>
+    <button id="exitButton">Salir</button>
+
+    <div id="status">
+      Nada ahí fuera<br>
+      Imagen y audio Acebuch.
+    </div>
+  </div>
+
+  <div id="ritmoExit" class="ritmo-popup" hidden>
+    <div class="ritmo-popup__backdrop" id="popupBackdrop"></div>
+
+    <div class="ritmo-popup__panel" role="dialog" aria-modal="true" aria-labelledby="ritmoPopupTitle">
+      <p class="ritmo-popup__kicker">THE WALK</p>
+      <h2 class="ritmo-popup__title" id="ritmoPopupTitle">Puerta · Ritmo</h2>
+      <p class="ritmo-popup__text">¿Dónde quieres ir ahora?</p>
+
+      <nav class="ritmo-popup__actions">
+        <a class="ritmo-popup__btn" href="Mapa-TheWalk.html">Ir al mapa</a>
+        <a class="ritmo-popup__btn ritmo-popup__btn--ghost" href="index.html">Umbral</a>
+        <a class="ritmo-popup__btn" href="Partitura-I-LosEstorninos.html">Volver a partituras</a>
+        <a class="ritmo-popup__btn" href="IChing.html">Abrir el I Ching</a>
+      </nav>
+
+      <button id="closePopupButton" class="ritmo-popup__close" type="button" aria-label="Cerrar">×</button>
+    </div>
+  </div>
+
+  <canvas id="ritmoCanvas"></canvas>
+
+  <script src="js/ritmo-1-LosEstorninos.js" defer></script>
+  
+<script>
+   function inhabilitar(){
+          alert ("Obra creada por Acebuch bajo Licencia de copyright.")
+          return false
+      }
+      document.oncontextmenu = inhabilitar
+  </script>
+</body>
+</html>

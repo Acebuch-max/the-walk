@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Walk — I Ching</title>
+  <link rel="stylesheet" href="css/IChing.css" />
+  <link rel="stylesheet" href="css/umbral.css" />
+</head>
+
+<body class="ichin ">
+  <!-- ruido/filtro sutil (sin imágenes externas) -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="mast layout mode-gallery layout mode-rhythm">
+    <div class="mast__left">
+      <p class="mast__kicker">THE WALK</p>
+      <h1 class="mast__title">I Ching</h1>
+      <p class="mast__sub">El juego del Oráculo</p>
+    </div>
+
+    <nav class="mast__nav">
+      <!-- Ajusta rutas según dónde lo ubiques (Mapa/ES o raíz) -->
+      <a class="navlink" href="Mapa-TheWalk.html">Mapa</a>
+      <a class="navlink" href="../../index.html">Entrada</a>
+    </nav>
+  </header>
+
+  <main class="stage">
+    <!-- Columna A: Ritual -->
+    <section class="panel panel--ritual" aria-labelledby="ritualTitle">
+      <header class="panel__head">
+        <h2 id="ritualTitle" class="panel__title">Ritual</h2>
+        <p class="panel__hint">6 tiradas · 3 monedas por tirada · de abajo a arriba</p>
+      </header>
+
+      <div class="actions">
+        <button id="btnTirar" class="btn btn--primary" type="button">
+          Tirar monedas
+        </button>
+
+        <button id="btnDeshacer" class="btn" type="button" disabled>
+          Deshacer última
+        </button>
+
+        <button id="btnReiniciar" class="btn" type="button">
+          Reiniciar
+        </button>
+      </div>
+
+      <ol class="throws" id="listaTiradas" aria-live="polite">
+        <!-- El JS inyecta 6 items (o los va completando) -->
+        <li class="throw throw--empty">
+          <span class="throw__n">1</span>
+          <span class="throw__coins">— — —</span>
+          <span class="throw__sum">—</span>
+          <span class="throw__line">—</span>
+        </li>
+        <li class="throw throw--empty">
+          <span class="throw__n">2</span>
+          <span class="throw__coins">— — —</span>
+          <span class="throw__sum">—</span>
+          <span class="throw__line">—</span>
+        </li>
+        <li class="throw throw--empty">
+          <span class="throw__n">3</span>
+          <span class="throw__coins">— — —</span>
+          <span class="throw__sum">—</span>
+          <span class="throw__line">—</span>
+        </li>
+        <li class="throw throw--empty">
+          <span class="throw__n">4</span>
+          <span class="throw__coins">— — —</span>
+          <span class="throw__sum">—</span>
+          <span class="throw__line">—</span>
+        </li>
+        <li class="throw throw--empty">
+          <span class="throw__n">5</span>
+          <span class="throw__coins">— — —</span>
+          <span class="throw__sum">—</span>
+          <span class="throw__line">—</span>
+        </li>
+        <li class="throw throw--empty">
+          <span class="throw__n">6</span>
+          <span class="throw__coins">— — —</span>
+          <span class="throw__sum">—</span>
+          <span class="throw__line">—</span>
+        </li>
+      </ol>
+
+      <details class="help">
+        <summary>Cómo se calcula</summary>
+        <div class="help__body">
+          <p>
+            Cada tirada usa 3 monedas. Asigna <strong>3</strong> a cara y <strong>2</strong> a cruz
+            (o al revés: lo importante es mantenerlo constante).
+          </p>
+          <p>
+            La suma posible es <strong>6, 7, 8, 9</strong>:
+            <br />6 = yin móvil · 7 = yang fijo · 8 = yin fijo · 9 = yang móvil.
+          </p>
+          <p>
+            El hexagrama se construye <strong>de abajo a arriba</strong> (la 1ª tirada es la línea inferior).
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <!-- Columna B: Resultado -->
+    <section class="panel panel--result" aria-labelledby="resTitle">
+      <header class="panel__head">
+        <h2 id="resTitle" class="panel__title">Hexagramas</h2>
+        <p class="panel__hint">Primario · Líneas móviles · Resultante</p>
+      </header>
+
+      <div class="hexes">
+        <article class="hex">
+          <h3 class="hex__title">Primario</h3>
+          <div class="hex__glyph" id="hexPrimario" aria-label="Hexagrama primario">
+            <!-- 6 líneas (JS las dibuja). Placeholder visual -->
+            <div class="line line--empty"></div>
+            <div class="line line--empty"></div>
+            <div class="line line--empty"></div>
+            <div class="line line--empty"></div>
+            <div class="line line--empty"></div>
+            <div class="line line--empty"></div>
+          </div>
+          <p class="hex__meta">
+            <span class="tag">Nº</span> <strong id="numPrimario">—</strong>
+            <span class="sep">·</span>
+            <span class="tag">Nombre</span> <strong id="nomPrimario">—</strong>
+          </p>
+        </article>
+
+        <article class="hex">
+          <h3 class="hex__title">Resultante</h3>
+          <div class="hex__glyph" id="hexResultante" aria-label="Hexagrama resultante">
+            <div class="line line--empty"></div>
+            <div class="line line--empty"></div>
+            <div class="line line--empty"></div>
+            <div class="line line--empty"></div>
+            <div class="line line--empty"></div>
+            <div class="line line--empty"></div>
+          </div>
+          <p class="hex__meta">
+            <span class="tag">Nº</span> <strong id="numResultante">—</strong>
+            <span class="sep">·</span>
+            <span class="tag">Nombre</span> <strong id="nomResultante">—</strong>
+          </p>
+        </article>
+      </div>
+
+      <article class="panel panel--mini">
+        <header class="panel__head panel__head--mini">
+          <h3 class="panel__title panel__title--mini">Líneas móviles</h3>
+          <p class="panel__hint panel__hint--mini">Qué líneas cambian (1 = abajo, 6 = arriba)</p>
+        </header>
+        <ul class="moving" id="lineasMoviles">
+          <li class="moving__empty">—</li>
+        </ul>
+      </article>
+
+      <article class="panel panel--mini">
+        <header class="panel__head panel__head--mini">
+          <h3 class="panel__title panel__title--mini">Resumen estructural mínimo</h3>
+          <p class="panel__hint panel__hint--mini">Sin interpretación</p>
+        </header>
+
+        <div class="struct">
+          <div class="struct__row">
+            <span class="struct__k">Trigrama inferior</span>
+            <span class="struct__v" id="triInf">—</span>
+          </div>
+          <div class="struct__row">
+            <span class="struct__k">Trigrama superior</span>
+            <span class="struct__v" id="triSup">—</span>
+          </div>
+          <div class="struct__row">
+            <span class="struct__k">Tipo de cambio</span>
+            <span class="struct__v" id="tipoCambio">—</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Columna C: Nota ética / referencia -->
+    <aside class="panel panel--ref" aria-labelledby="refTitle">
+      <header class="panel__head">
+        <h2 id="refTitle" class="panel__title">Nota</h2>
+        <p class="panel__hint">Esta partitura no reemplaza la lectura del libro: ofrece un comentario estructural.</p>
+      </header>
+
+      <div class="note">
+        <p>
+          Esta partitura facilita el <strong>acto</strong> (tiradas, líneas, hexagramas).
+          La lectura pertenece a tu libro.
+        </p>
+        <p class="cite">
+          <strong>Texto de referencia (consulta):</strong><br />
+          Richard Wilhelm, <em>I Ching. El libro de las mutaciones</em>, Edhasa, 1995.
+        </p>
+        <p class="cite">
+          <strong>Texto de referencia (consulta):</strong><br />
+          Richard Wilhelm, <em>The I Ching or Book of Changes
+          Translated by Cary F. Baynes
+          Foreword by Carl Jung
+          </em>,Originally published in English by Princeton University Press (1950)
+        </p>
+        <p class="quiet">
+          Si has formulado una pregunta, deja un instante de silencio antes de ir al libro.
+        </p>
+      </div>
+
+<section class="card">
+  <header class="card__head">
+    <h3>Comentario The Walk</h3>
+    <p class="muted">No sustituye al libro. La interpretación observa la estructura del signo de los exagramas y respira con el estado del entorno poético de The Walk.</p>
+  </header>
+
+  <div id="twComment" class="card__body">
+    <p class="muted">Aparecerá cuando completes las 6 líneas.</p>
+  </div>
+</section>
+
+      <section class="iching-method">
+  <details>
+    <summary>Metodología del comentario</summary>
+    <div class="iching-method__content">
+      <p>
+        Este oráculo no interpreta símbolos.
+        Observa relaciones.
+        La estructura del hexagrama se analiza como una red:
+        tensiones, vacíos, mutaciones.
+      </p>
+
+      <p>
+        La lectura integra tres afinidades:
+        el flujo constante (Heráclito),
+        la forma que emerge del vacío (Laozi),
+        y la recursividad de los sistemas complejos (Morin).
+      </p>
+
+      <p>
+       El comentario depende también del estado global del proyecto.
+       Nada aquí está aislado.
+      </p>
+    </div>
+  </details>
+</section>
+
+
+      <footer class="foot">
+        <span class="foot__dot" aria-hidden="true"></span>
+        <span class="foot__txt">Partitura · I Ching</span>
+      </footer>
+    </aside>
+    <p class="hex__sent" id="sentPrimario">—</p>
+    <p class="hex__sent" id="sentResultante">—</p>
+
+
+  </main>  
+
+  <div class="umbral-badge" aria-hidden="true">
+  UMBRAL <span data-umbral-readout>…</span>
+  </div>
+
+
+  <script src="js/core.js" defer></script>
+  <script src="js/IChing.js" defer></script>
+  <script src="js/thewalk-umbral-core.js" defer></script>
+
+ <script>
+   function inhabilitar(){
+          alert ("Obra creada por Acebuch bajo Licencia de copyright.")
+          return false
+      }
+      document.oncontextmenu = inhabilitar
+  </script>
+</body>
+</html>

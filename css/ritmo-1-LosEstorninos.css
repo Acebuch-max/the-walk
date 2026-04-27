@@ -1,0 +1,490 @@
+/* =================================
+   RESET BÁSICO
+================================= */
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+html,
+body{
+
+width:100%;
+height:100%;
+overflow:hidden;
+background:#ffffff;
+font-family:Arial, Helvetica, sans-serif;
+
+}
+
+
+/* =================================
+   CANVAS
+================================= */
+
+#ritmoCanvas{
+
+position:fixed;
+top:0;
+left:0;
+
+width:100vw;
+height:100vh;
+
+display:block;
+
+/* mejora rendimiento gráfico */
+
+transform:translateZ(0);
+will-change:transform;
+
+touch-action:none;
+
+}
+
+
+/* =================================
+   INTERFAZ
+================================= */
+
+#ui{
+
+position:fixed;
+
+top:20px;
+left:20px;
+
+z-index:20;
+
+display:flex;
+flex-direction:column;
+gap:10px;
+
+padding:12px 14px;
+
+background:rgba(0,0,0,0.40);
+border:1px solid rgba(255,255,255,0.15);
+
+border-radius:10px;
+
+color:rgba(255,255,255,0.92);
+
+backdrop-filter:blur(6px);
+
+}
+
+
+/* =================================
+   BOTÓN
+================================= */
+
+#startButton{
+
+appearance:none;
+
+border:1px solid rgba(255,255,255,0.25);
+background:rgba(20,20,20,0.95);
+
+color:white;
+
+padding:10px 14px;
+
+border-radius:8px;
+
+font-size:14px;
+letter-spacing:0.02em;
+
+cursor:pointer;
+
+-webkit-tap-highlight-color:transparent;
+
+transition:
+
+background 0.2s,
+transform 0.1s,
+border-color 0.2s;
+
+}
+
+#startButton:hover{
+
+background:rgba(35,35,35,0.95);
+border-color:rgba(255,255,255,0.40);
+
+}
+
+#startButton:active{
+
+transform:scale(0.96);
+
+}
+
+
+/* =================================
+   TEXTO ESTADO
+================================= */
+
+#status{
+
+font-size:12px;
+line-height:1.35;
+opacity:0.85;
+max-width:260px;
+
+}
+
+
+/* =================================
+   TABLET
+================================= */
+
+@media (max-width:1024px){
+
+#ui{
+
+top:16px;
+left:16px;
+
+padding:10px 12px;
+
+max-width:240px;
+
+}
+
+#startButton{
+
+font-size:15px;
+padding:12px 16px;
+
+}
+
+#status{
+
+font-size:12px;
+
+}
+
+}
+
+
+/* =================================
+   MÓVIL
+================================= */
+
+@media (max-width:680px){
+
+#ui{
+
+left:50%;
+transform:translateX(-50%);
+
+top:auto;
+bottom:20px;
+
+width:90%;
+max-width:320px;
+
+text-align:center;
+
+padding:14px;
+
+}
+
+#startButton{
+
+width:100%;
+
+font-size:16px;
+padding:14px 18px;
+
+border-radius:12px;
+
+}
+
+#status{
+
+font-size:11px;
+opacity:0.85;
+
+}
+
+}
+
+
+/* =================================
+   PANTALLAS MUY PEQUEÑAS
+================================= */
+
+@media (max-width:420px){
+
+#ui{
+
+bottom:16px;
+
+}
+
+#startButton{
+
+font-size:15px;
+padding:13px 16px;
+
+}
+
+#status{
+
+font-size:10px;
+
+}
+
+}
+/* =================================
+   BOTÓN SALIR
+================================= */
+
+#exitButton{
+
+appearance:none;
+
+border:1px solid rgba(255,255,255,0.18);
+background:rgba(12,12,12,0.92);
+
+color:white;
+
+padding:10px 14px;
+
+border-radius:8px;
+
+font-size:13px;
+letter-spacing:0.02em;
+
+cursor:pointer;
+
+-webkit-tap-highlight-color:transparent;
+
+transition:
+background 0.2s,
+transform 0.1s,
+border-color 0.2s;
+
+}
+
+#exitButton:hover{
+
+background:rgba(28,28,28,0.95);
+border-color:rgba(255,255,255,0.34);
+
+}
+
+#exitButton:active{
+
+transform:scale(0.96);
+
+}
+
+
+/* =================================
+   POPUP SALIDA
+================================= */
+
+.ritmo-popup{
+
+position:fixed;
+inset:0;
+z-index:100;
+
+}
+
+.ritmo-popup__backdrop{
+
+position:absolute;
+inset:0;
+
+background:rgba(0,0,0,0.62);
+backdrop-filter:blur(6px);
+
+}
+
+.ritmo-popup__panel{
+
+position:absolute;
+top:50%;
+left:50%;
+
+transform:translate(-50%,-50%);
+
+width:min(92vw, 520px);
+
+padding:24px 22px 20px;
+
+background:rgba(10,10,10,0.92);
+border:1px solid rgba(255,255,255,0.14);
+border-radius:16px;
+
+color:white;
+box-shadow:0 20px 60px rgba(0,0,0,0.45);
+
+}
+
+.ritmo-popup__kicker{
+
+font-size:11px;
+letter-spacing:0.18em;
+text-transform:uppercase;
+opacity:0.65;
+margin-bottom:8px;
+
+}
+
+.ritmo-popup__title{
+
+font-size:24px;
+font-weight:400;
+line-height:1.1;
+margin-bottom:10px;
+
+}
+
+.ritmo-popup__text{
+
+font-size:14px;
+line-height:1.45;
+opacity:0.86;
+margin-bottom:18px;
+
+}
+
+.ritmo-popup__actions{
+
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+
+}
+
+.ritmo-popup__btn{
+
+display:inline-flex;
+align-items:center;
+justify-content:center;
+
+min-height:42px;
+padding:10px 14px;
+
+border-radius:10px;
+border:1px solid rgba(255,255,255,0.16);
+
+background:rgba(22,22,22,0.95);
+color:white;
+text-decoration:none;
+
+font-size:14px;
+line-height:1.2;
+
+transition:
+background 0.2s,
+border-color 0.2s,
+transform 0.1s;
+
+}
+
+.ritmo-popup__btn:hover{
+
+background:rgba(38,38,38,0.96);
+border-color:rgba(255,255,255,0.30);
+
+}
+
+.ritmo-popup__btn:active{
+
+transform:scale(0.97);
+
+}
+
+.ritmo-popup__btn--ghost{
+
+background:transparent;
+
+}
+
+.ritmo-popup__close{
+
+position:absolute;
+top:10px;
+right:12px;
+
+appearance:none;
+border:none;
+background:transparent;
+color:white;
+
+font-size:28px;
+line-height:1;
+cursor:pointer;
+opacity:0.82;
+
+}
+
+.ritmo-popup__close:hover{
+
+opacity:1;
+
+}
+
+
+/* =================================
+   TABLET
+================================= */
+
+@media (max-width:1024px){
+
+#exitButton{
+font-size:14px;
+padding:11px 15px;
+}
+
+.ritmo-popup__panel{
+width:min(92vw, 500px);
+padding:22px 20px 18px;
+}
+
+}
+
+
+/* =================================
+   MÓVIL
+================================= */
+
+@media (max-width:680px){
+
+#exitButton{
+width:100%;
+font-size:15px;
+padding:13px 16px;
+border-radius:12px;
+}
+
+.ritmo-popup__panel{
+width:92vw;
+padding:20px 16px 16px;
+border-radius:14px;
+}
+
+.ritmo-popup__title{
+font-size:21px;
+}
+
+.ritmo-popup__text{
+font-size:13px;
+}
+
+.ritmo-popup__actions{
+flex-direction:column;
+}
+
+.ritmo-popup__btn{
+width:100%;
+}
+
+}

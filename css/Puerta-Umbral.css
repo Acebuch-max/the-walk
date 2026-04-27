@@ -1,0 +1,341 @@
+/* Puerta-Umbral.css */
+:root{
+  --bg: #0f0f10;
+  --ink: #dadada;
+  --muted: rgba(218,218,218,.65);
+  --line: rgba(248,10,15,.85);     /* #f80a0f */
+  --hot: #fd6400;                  /* naranja puertas */
+  --glass: rgba(15,15,16,.38);
+  --glass2: rgba(15,15,16,.22);
+  --shadow: 0 20px 55px rgba(0,0,0,.55);
+  --radius: 18px;
+}
+
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* Escenario */
+.stage{
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+/* Marco 16:9 a pantalla: letterbox garantizado */
+.frame{
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 50% 50%, rgba(218,218,218,.06), transparent 55%),
+    linear-gradient(180deg, rgba(255,255,255,.03), transparent 30%),
+    var(--bg);
+  overflow: hidden;
+}
+
+/* Imagen: siempre completa sin deformar, respetando 16:9 visual */
+.frame__img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;  /* letterbox */
+  object-position: center center;
+  filter: saturate(1.02) contrast(1.02);
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none; /* la interacción la lleva el frame */
+}
+
+/* UI superior / inferior */
+.ui{
+  position: fixed;
+  right: 4vw;
+  bottom: 4vh;
+
+  display: flex;
+  justify-content: flex-end;
+
+  pointer-events: none;
+  z-index: 50;
+}
+
+.ui button{
+  pointer-events: auto;
+
+  width: 58px;
+  height: 58px;
+
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.25);
+
+  background: rgba(255,255,255,.18);
+  backdrop-filter: blur(6px);
+
+  font-size: 1.4rem;
+  color: rgba(255,255,255,.92);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition: all .25s ease;
+}
+
+.ui button:hover{
+  background: rgba(255,255,255,.28);
+  transform: scale(1.08);
+}
+
+.ui button.is-active{
+  background: rgba(248,10,15,.35);
+  border-color: rgba(248,10,15,.6);
+}
+
+.ui{
+  position: absolute;
+  left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  pointer-events: none; /* solo botones reciben eventos */
+}
+
+.ui--top{ top: 0; }
+.ui--bottom{ bottom: 0; }
+
+.ui__left, .ui__right{ display: flex; gap: 10px; align-items: center; }
+.ui__right{ justify-content: flex-end; }
+
+/* Botones estilo "The Walk" */
+.ui__btn,
+.ui__back{
+  pointer-events: auto;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--glass);
+  border: 1px solid rgba(218,218,218,.22);
+  border-radius: 999px;
+  padding: 10px 12px;
+  line-height: 1;
+  font-size: 13px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.35);
+  cursor: pointer;
+  transition: transform .12s ease, border-color .12s ease, background .12s ease;
+}
+
+.ui__back{
+  width: 40px; height: 40px;
+  display: inline-grid;
+  place-items: center;
+  font-size: 16px;
+  padding: 0;
+}
+
+.ui__btn:hover,
+.ui__back:hover{
+  transform: translateY(-1px);
+  border-color: rgba(253,100,0,.55);
+  background: rgba(15,15,16,.48);
+}
+
+.ui__btn--door{
+  border-color: rgba(248,10,15,.35);
+}
+.ui__btn--door:hover{
+  border-color: rgba(253,100,0,.75);
+}
+
+/* Caption inferior */
+.caption{
+  pointer-events: none;
+  display: inline-flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 10px 12px;
+  background: var(--glass2);
+  border: 1px solid rgba(218,218,218,.14);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.25);
+}
+
+.caption__title{
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.caption__sep{
+  color: rgba(248,10,15,.9);
+}
+.caption__meta{
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Hint sutil */
+.hint{
+  position: absolute;
+  left: 18px;
+  top: 64px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(15,15,16,.28);
+  border: 1px solid rgba(218,218,218,.12);
+  backdrop-filter: blur(10px);
+}
+
+.hint__dot{
+  width: 9px; height: 9px;
+  border-radius: 999px;
+  background: rgba(253,100,0,.85);
+  box-shadow: 0 0 0 3px rgba(253,100,0,.15);
+}
+.hint__text{
+  font-size: 12px;
+  letter-spacing: .06em;
+  text-transform: lowercase;
+  color: rgba(218,218,218,.72);
+}
+
+/* Lupa */
+.loupe{
+  --size: 220px;
+  --zoom: 2.6;
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 999px;
+  border: 1px solid rgba(218,218,218,.35);
+  box-shadow: var(--shadow);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 200% 200%;
+  opacity: 0;
+  transform: translate(-9999px, -9999px);
+  transition: opacity .12s ease;
+  pointer-events: none;
+  backdrop-filter: blur(2px);
+}
+
+/* Apagada */
+.loupe--off{
+  opacity: 0 !important;
+}
+
+/* Responsivo: en móvil hacemos la lupa un poco más pequeña */
+@media (max-width: 780px){
+  .hint{ top: 58px; }
+  .loupe{ --size: 180px; }
+  .ui{ padding: 12px 12px; }
+  .ui__btn{ font-size: 12px; padding: 9px 11px; }
+  .caption__title, .caption__meta{ font-size: 11px; }
+}
+/* ---------------------------------------
+   Tablet
+--------------------------------------- */
+@media (max-width: 1024px){
+
+  .choice-link{
+    bottom: 1.8rem;
+    left: 1.8rem;
+  }
+
+  .choice-link__a{
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+  }
+
+}
+/* ---------------------------------------
+   Móvil
+--------------------------------------- */
+@media (max-width: 780px){
+
+  .choice-link{
+    bottom: 1.2rem;
+    left: 1.2rem;
+  }
+
+  .choice-link__a{
+    font-size: 0.95rem;
+    line-height: 1.3;
+    max-width: 60vw;
+  }
+
+}
+
+
+/* Accesibilidad */
+:focus-visible{
+  outline: 2px solid rgba(253,100,0,.85);
+  outline-offset: 3px;
+}
+/* ---------------------------------------
+   Link de elección (abajo izquierda)
+--------------------------------------- */
+
+.choice-link{
+  position: absolute;
+  bottom: 5rem;
+  left: 2rem;
+  z-index: 5;
+}
+
+
+.choice-link__a{
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: rgba(255,255,255,0.75);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.choice-link__a:hover{
+  color: #f80a0f;
+  transform: translateX(4px);
+}
+#Umbral{
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#franja{
+  position:absolute;
+  inset:0;
+}
+
+.verso{
+  position:absolute;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+#origin-dot{
+  position:absolute;
+  width:10px; height:10px;
+  border-radius:999px;
+  background:#fd6400;
+  transform: translate(-50%, -50%);
+}

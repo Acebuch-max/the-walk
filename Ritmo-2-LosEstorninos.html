@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RITMO-2 · Los Estorninos</title>
+
+<link rel="stylesheet" href="css/ritmo-2-LosEstorninos.css">
+
+</head>
+
+
+<body>
+
+
+<!-- INTERFAZ -->
+
+<div id="ui">
+
+<button id="playAudio">Reproducir</button>
+
+<button id="modeOrganic" class="is-active">
+Modo Organic
+</button>
+
+<button id="modeFluid">
+Modo Fluid
+</button>
+
+<button id="exitButton">
+Salir
+</button>
+
+<div id="status">
+Preparando imagen y audio…
+</div>
+
+</div>
+
+
+
+<!-- PANEL DE SALIDA -->
+
+<div id="exitPanel" hidden>
+
+<div id="exitBackdrop"></div>
+
+<div id="exitWindow">
+
+<h2>Puerta · Ritmo</h2>
+
+<nav>
+
+<a href="Mapa-TheWalk.html">
+Mapa
+</a>
+
+<a href="Puerta-Umbral-LosEstorninos.html">
+Umbral
+</a>
+
+<a href="Partitura-II-LosEstorninos.html">
+Partituras
+</a>
+
+<a href="IChing.html">
+I Ching
+</a>
+
+</nav>
+
+<button id="closeExit">
+Volver
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- CANVAS DEL SISTEMA -->
+
+<canvas id="canvas"></canvas>
+
+
+
+<!-- SCRIPTS -->
+
+<script src="js/ritmo-2-LosEstorninos-particle.js"></script>
+
+<script src="js/ritmo-2-LosEstorninos-image.js"></script>
+
+<script src="js/ritmo-2-LosEstorninos-audio.js"></script>
+
+<script src="js/ritmo-2-LosEstorninos-mode-organic.js"></script>
+
+<script src="js/ritmo-2-LosEstorninos-mode-fluid.js"></script>
+
+<script src="js/ritmo-2-LosEstorninos-ui.js"></script>
+
+<script src="js/ritmo-2-LosEstorninos-core.js"></script>
+
+<script>
+   function inhabilitar(){
+          alert ("Obra creada por Acebuch bajo Licencia de copyright.")
+          return false
+      }
+      document.oncontextmenu = inhabilitar
+  </script>
+
+</html>

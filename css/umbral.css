@@ -1,0 +1,109 @@
+/* css/umbral.css */
+:root{
+  /* Fallback por si JS aún no ha arrancado */
+  --umbral: .33;
+  --umbral-tension: .33;
+  --umbral-entropy: .66;
+  --umbral-rel: 0;
+  --umbral-verb: 0;
+}
+
+/* Señal mínima: una “marca” discreta opcional (puedes quitarla luego) */
+.umbral-badge{
+  position: fixed;
+  left: 10px;
+  bottom: 10px;
+  z-index: 9999;
+  font-family: Ubuntu, system-ui, sans-serif;
+  font-size: 12px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.14);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.08);
+  color: rgba(60,60,60,.75);
+  backdrop-filter: blur(4px);
+
+  /* El Umbral “respira” aquí de forma mínima */
+  opacity: calc(.25 + var(--umbral) * .55);
+}
+
+/* 1) MAPA: tu topología ya existe → la modulamos con Umbral */
+.mapa__topology{
+  opacity: calc(.35 + var(--umbral) * .55); /* antes fijo .9 / .75 etc. :contentReference[oaicite:8]{index=8} */
+}
+
+/* Líneas/nodos: tensión = más presencia, entropía = más difuminado */
+.mapa__topology .topo__lines line{
+  stroke: rgba(248, 10, 15, calc(.06 + var(--umbral-tension) * .12));
+}
+
+.mapa__topology .topo__nodes circle{
+  fill: rgba(248, 10, 15, calc(.10 + var(--umbral-tension) * .18));
+}
+
+/* 2) PARTITURAS: el Umbral no “decora”, altera respiración/claridad */
+.ptolomeo{
+  /* un velo muy leve ligado a entropía */
+  filter: blur(calc(var(--umbral-entropy) * 0.6px));
+}
+
+/* Texto: micro-variación de contraste (no dramatizar) */
+.ptolomeo p.es{
+  opacity: calc(.86 + var(--umbral) * .10);
+}
+
+/* Puertas: coherencia “umbral” en hover sin cambiar tu estética base */
+a.door{
+  transition: transform 600ms ease, filter 600ms ease;
+}
+a.door:hover{
+  transform: translateY(calc(var(--umbral) * -1px));
+  filter: saturate(calc(1 + var(--umbral-tension) * .15));
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce){
+  a.door{ transition: none; }
+}
+/* ================================
+   ARCILLA-4 / POEM ANALYSIS LAYER
+   Modulación del Umbral por poema
+   ================================ */
+
+:root {
+  --tw-umbral-instability: 0;
+  --tw-umbral-pulse: 0;
+  --tw-umbral-density: 0;
+  --tw-umbral-contraction: 0;
+  --tw-umbral-openness: 0;
+  --tw-umbral-warmth: 0;
+  --tw-umbral-coldness: 0;
+  --tw-umbral-threshold: 0;
+  --tw-umbral-echo: 0;
+  --tw-umbral-drift: 0;
+}
+
+/* indicador visual del estado de umbral */
+
+.umbral-badge {
+  letter-spacing: calc(0.08em + var(--tw-umbral-echo) * 0.18em);
+  opacity: calc(0.55 + var(--tw-umbral-threshold) * 0.45);
+  transform: translateX(calc(var(--tw-umbral-drift) * 6px));
+}
+
+/* clima semántico del poema */
+
+body.tw-has-cold .ptolomeo,
+body.tw-has-negation .ptolomeo {
+  filter:
+    brightness(calc(1 - var(--tw-umbral-coldness) * 0.18))
+    contrast(calc(1 + var(--tw-umbral-threshold) * 0.22));
+}
+
+body.tw-has-affection .ptolomeo {
+  filter:
+    saturate(calc(1 + var(--tw-umbral-warmth) * 0.18))
+    brightness(calc(1 + var(--tw-umbral-warmth) * 0.04));
+}

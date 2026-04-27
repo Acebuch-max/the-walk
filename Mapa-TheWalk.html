@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Walk · Mapa</title>
+
+<link rel="stylesheet" href="css/core.css" />
+<link rel="stylesheet" href="css/Mapa.css"/>
+<link rel="stylesheet" href="css/umbral.css" />
+
+</head>
+
+<body class="tw mapa">
+
+  <main class="mapa__frame" aria-label="Mapa de The Walk">
+
+    <!-- TOPOLOGÍA (base + puntos límite) -->
+    <svg class="mapa__topology" id="topologySvg" aria-hidden="true"></svg>
+
+    <!-- Capa franja (ARCILLA–3) -->
+    <svg class="mapa__franja" id="franjaSvg" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+      <path id="franja-fill" d=""></path>
+      <path id="franja-stroke" d=""></path>
+    </svg>
+
+    <section id="mapa-topologico" class="mapa-topologico">
+      <canvas id="topo-canvas"></canvas>
+     <div id="topo-overlay"></div>
+    </section>
+
+
+
+    <!-- POEMAS -->
+    <section class="mapa__poemas" aria-labelledby="poemas-title">
+      <!--<h2 id="poemas-title" class="mapa__label">EL PASEO</h2>-->
+      <!--<h2 id="poemas-title" class="mapa__label">THE WALK</h2>-->
+
+      <nav class="poemas__grid" aria-label="Lista de poemas">
+
+        <a class="poema poema--wide is-active" href="Partitura-I-CircaStellas.html" data-poem="estorninos">Circa Stellas. Destilación. Oráculo.</a>
+        <a class="poema poema--wide" href="Partitura-I-LosEstorninos.html" data-poem="EllaB">Los estorninos. Destilación. Oráculo.</a>
+        <a class="poema poema--wide" href="IChing.html" data-poem="Oraculo">I CHING</a>
+
+      
+
+         <!--<a class="poema poema--wide" href="#partituras" data-poem="Oraculo">
+          The Oracle Game
+        </a>-->
+        <a class="poema poema--dot" href="#partituras" data-poem="poema-3">·</a>
+        <a class="poema poema--dot" href="#partituras" data-poem="poema-5">·</a>
+        <a class="poema poema--dot" href="#partituras" data-poem="poema-6">·</a>
+
+      </nav>
+    </section>
+
+    
+
+    <!-- PLACEHOLDER -->
+    <section class="mapa__placeholder" aria-label="Intro">
+
+      <div class="placeholder__box has-video">
+        <!-- Fondo vídeo reutilizable -->
+        <video class="bgvideo"
+               autoplay
+               muted
+               loop
+               playsinline
+               preload="metadata"
+               poster="graficos/fallback.jpg">
+          <source src="videos/fluxus-2.mp4" type="video/mp4">
+        </video>
+
+        <h1 class="placeholder__h1">El Paseo</h1>
+
+        <p class="placeholder__text">
+         Poesía significa crear.
+Crear es abrir un espacio donde algo comienza a ser.
+
+Lo que vas a recorrer no es un discurso, sino una atmósfera.
+Un territorio simbólico donde palabra, ritmo e imagen se desplazan.
+
+Nada aquí es literal.
+Todo es metáfora en movimiento.
+
+Entra si deseas explorar.
+Detente si algo no resuena contigo.
+
+Este recorrido es libre y no requiere dejar datos ni huella.
+Para menores, se recomienda acompañamiento adulto cuando así se considere oportuno.
+
+Camina con atención.
+La experiencia ocurre entre lo que ves y lo que traes contigo.
+
+Aunque desde tu móvil puedes recorrer estos poemas, la mejor experincia será desde tu ordenador
+o incluso desde tu televisor.<br>Caminante si vas con prisa este no es un lugar para ti ahora mismo.
+        </p>
+ </div>
+
+    </section>
+
+  </main>
+
+  
+  
+   <script src="js/Mapa-TheWalk.js" defer></script>
+   <script src="js/thewalk-umbral-core.js" defer></script>
+   <script src="js/Mapa-Franja.js" defer></script>
+
+   <script>
+   function inhabilitar(){
+          alert ("Obra creada por Acebuch bajo Licencia de copyright.")
+          return false
+      }
+      document.oncontextmenu = inhabilitar
+  </script>
+
+</body>
+</html>

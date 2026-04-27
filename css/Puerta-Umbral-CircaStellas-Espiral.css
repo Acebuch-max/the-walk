@@ -1,0 +1,37 @@
+html, body{
+  margin:0;
+  padding:0;
+  height:100%;
+  background:#07090d;
+  overflow:hidden;
+  font-family: system-ui, sans-serif;
+  color:#f5f5f5;
+}
+
+#habitar{
+  position:relative;
+  width:100vw;
+  height:100vh;
+}
+
+#franja{
+  position:absolute;
+  inset:0;
+}
+
+.verso{
+  position:absolute;
+  transform:translate(-50%, -50%);
+  white-space:nowrap;
+  font-size:14px;
+  opacity:0.85;
+}
+
+#origin-dot{
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#fd6400;
+  transform:translate(-50%, -50%);
+}

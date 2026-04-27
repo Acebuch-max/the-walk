@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Umbral</title>
+  <link rel="stylesheet" href="css/core.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/umbral.css" />
+</head>
+
+<body class="layout">
+
+  <nav class="lang-switch">
+  <a href="Mapa/ES/index.html" class="lang">ES</a>
+  <a href="Mapa/EN/index.html" class="lang">EN</a>
+  </nav>
+
+  <!-- Franja 1: marca -->
+  <div class="franja-1">
+    <a class="btn-tienda" href="https://www.acebuchdownload.com/" aria-label="Ir a tienda">acebuchdownload.art</a>
+  </div>
+
+  <!-- Franja 2: imagen -->
+  <div class="franja-2">
+    <a class="umbral-link" href="Mapa-TheWalk.html" aria-label="Entrar a Partitura">
+      <img class="umbral-img" src="graficos/umbral_es.png" alt="The Walk">
+    </a>
+  </div>
+
+  <!-- Franja 3: acciones -->
+  <div class="franja-3">
+   <!--<a class="btn-abrir" href="Mapa-TheWalk.html" aria-label="Entrar a Partitura">EMPEZAR-BEGIN</a>--> 
+    <a class="btn-irATienda" href="https://www.acebuchdownload.com/" aria-label="Ir a la tienda">O IR A TIENDA - OR VISIT THE SHOP </a>
+  </div>
+
+  <div class="umbral-badge" aria-hidden="true">
+  UMBRAL <span data-umbral-readout>…</span>
+  </div>
+    
+   <script src="js/thewalk-umbral-core.js" defer></script>
+
+   <script>
+   function inhabilitar(){
+          alert ("Obra creada por Acebuch bajo Licencia de copyright.")
+          return false
+      }
+      document.oncontextmenu = inhabilitar
+  </script>
+</body>
+</html>

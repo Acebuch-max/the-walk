@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Disparo</title>
+  <link rel="stylesheet" href="css/Disparo.css" />
+  <link rel="stylesheet" href="css/umbral.css" />
+</head>
+<body>
+
+  <canvas id="c"></canvas>
+
+  <div id="hud" aria-hidden="true">
+    <div id="hint">DISPARO</div>
+  </div>
+
+  <a id="next-link" href="Ritmo-1-LosEstorninos.html" aria-label="Continuar">Continuar</a>
+
+  <div class="umbral-badge" aria-hidden="true">
+  UMBRAL <span data-umbral-readout>…</span>
+  </div>  
+
+  <script src="js/Disparo.js" defer></script>
+  <script src="js/thewalk-umbral-core.js" defer></script>
+
+   <script>
+   function inhabilitar(){
+          alert ("Obra creada por Acebuch bajo Licencia de copyright.")
+          return false
+      }
+      document.oncontextmenu = inhabilitar
+  </script>
+</body>
+</html>
+
