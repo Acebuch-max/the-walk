@@ -1,0 +1,9 @@
+Algoritmo General de Catástrofe para Imágenes
+
+Paso	Acción	Comando
+
+1. Preparar la semilla	Copia tu imagen .jpg original a un archivo llamado semilla.jpg.	cp tu-imagen.jpg semilla.jpg
+
+2. Provocar la catástrofe	Ejecuta el script Python que muta los bytes de la imagen y le inyecta la firma --breath.	python3 -c "import random; datos=bytearray(open('semilla.jpg','rb').read()); i=datos.find(b'\xff\xda')+2 if datos.find(b'\xff\xda')!=-1 else 500; n=max(1,len(datos[i:])//100); [datos.__setitem__(random.randint(i,len(datos)-1),random.randint(0,255)) for _ in range(n)]; f=b'--breath'; p=random.randint(i,len(datos)-len(f)); datos[p:p+len(f)]=f; open('arcilla-agua.jpg','wb').write(datos); print('Catástrofe completada.')"
+
+3. Revelar la arcilla	Convierte el archivo mutado a un PNG visible.	python3 -c "from PIL import Image; datos=open('arcilla-agua.jpg','rb').read(); img=Image.new('RGB',(800,450)); pixeles=img.load(); [[pixeles.__setitem__((x,y),(datos[(y*200+x)%len(datos)],datos[((y*200+x)+1)%len(datos)],datos[((y*200+x)+2)%len(datos)])) for x in range(200)] for y in range(200)]; img.save('arcilla_agua_visible.png'); print('Arcilla revelada.')"

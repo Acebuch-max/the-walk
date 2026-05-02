@@ -1,0 +1,16 @@
+python3 -c "
+from PIL import Image
+with open('arcilla-agua.jpg")', 'rb') as f:
+    datos = f.read()
+img = Image.new('RGB', (200, 200))
+pixeles = img.load()
+for y in range(200):
+    for x in range(200):
+        idx = (y * 200 + x) % len(datos)
+        r = datos[idx % len(datos)]
+        g = datos[(idx + 1) % len(datos)]
+        b = datos[(idx + 2) % len(datos)]
+        pixeles[x, y] = (r, g, b)
+img.save('arcilla_agua.png')
+print('Arcilla visible creada: arcilla_agua_semilla.png')
+"
