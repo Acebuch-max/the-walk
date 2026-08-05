@@ -1,0 +1,186 @@
+/* ============================================================
+   THE WALK - sonido.css
+   Botón de sonido universal
+   ============================================================ */
+
+/* ---------- BOTÓN PRINCIPAL ---------- */
+#sonido,
+.sonido-btn {
+  position:fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  
+  width: 120px;
+  height: 120px;
+  
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  
+  color: rgba(238, 253, 232, 0.1);
+  font-size: 48px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1;
+  
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- HOVER ---------- */
+#sonido:hover,
+.sonido-btn:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+/* ---------- ACTIVO ---------- */
+#sonido.active,
+.sonido-btn.active {
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(192, 224, 186, 0.26);
+  background: rgba(217, 243, 212, 0.09);
+  box-shadow: 0 0 40px rgba(105, 170, 93, 0.05);
+}
+
+/* ---------- SILENCIO ---------- */
+#sonido.silence,
+.sonido-btn.silence {
+  color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ---------- RESPIRACIÓN ---------- */
+#sonido.breath,
+.sonido-btn.breath {
+  animation: sonidoBreathe 8s ease-in-out infinite;
+}
+
+@keyframes sonidoBreathe {
+  0% { 
+    opacity: 0.5; 
+    transform: translate(-50%, -50%) scale(1); 
+  }
+  25% { 
+    opacity: 0.9; 
+    transform: translate(-50%, -50%) scale(1.04); 
+  }
+  50% { 
+    opacity: 0.5; 
+    transform: translate(-50%, -50%) scale(1); 
+  }
+  75% { 
+    opacity: 0.9; 
+    transform: translate(-50%, -50%) scale(1.04); 
+  }
+  100% { 
+    opacity: 0.5; 
+    transform: translate(-50%, -50%) scale(1); 
+  }
+}
+
+/* ---------- TAMAÑOS ---------- */
+#sonido.large,
+.sonido-btn.large {
+  width: 140px;
+  height: 140px;
+  font-size: 56px;
+}
+
+#sonido.small,
+.sonido-btn.small {
+  width: 80px;
+  height: 80px;
+  font-size: 32px;
+}
+
+#sonido.xsmall,
+.sonido-btn.xsmall {
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+}
+
+/* ---------- DESPLAZAMIENTO ---------- */
+.sonido-offset-y-10  { transform: translate(-50%, calc(-50% + 10px)); }
+.sonido-offset-y-20  { transform: translate(-50%, calc(-50% + 20px)); }
+.sonido-offset-y-30  { transform: translate(-50%, calc(-50% + 30px)); }
+.sonido-offset-y--10 { transform: translate(-50%, calc(-50% - 10px)); }
+.sonido-offset-y--20 { transform: translate(-50%, calc(-50% - 20px)); }
+.sonido-offset-y--30 { transform: translate(-50%, calc(-50% - 30px)); }
+
+.sonido-offset-x-10  { transform: translate(calc(-50% + 10px), -50%); }
+.sonido-offset-x-20  { transform: translate(calc(-50% + 20px), -50%); }
+.sonido-offset-x--10 { transform: translate(calc(-50% - 10px), -50%); }
+.sonido-offset-x--20 { transform: translate(calc(-50% - 20px), -50%); }
+
+.sonido-offset-xy-10-20 { transform: translate(calc(-50% + 10px), calc(-50% + 20px)); }
+.sonido-offset-xy--10-20 { transform: translate(calc(-50% - 10px), calc(-50% + 20px)); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  #sonido,
+  .sonido-btn {
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+  }
+  
+  #sonido.large,
+  .sonido-btn.large {
+    width: 100px;
+    height: 100px;
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  #sonido,
+  .sonido-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+  
+  #sonido.large,
+  .sonido-btn.large {
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+  }
+  
+  #sonido.small,
+  .sonido-btn.small {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sonido.breath,
+  .sonido-btn.breath {
+    animation: none;
+  }
+  
+  #sonido:hover,
+  .sonido-btn:hover {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

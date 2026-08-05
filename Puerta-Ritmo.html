@@ -11,12 +11,12 @@
   <link rel="stylesheet" href="css/umbral.css" />
 </head>
 
-<body class="ritmo">
+<body data-page="Puerta-Ritmo" class="ritmo">
 
   <main class="piano" aria-label="Piano cromático 9×9">
 
    <header class="ritmo-neon" aria-hidden="true">
-  <p class="neonJazzSession">STARLING MUSIC SESSION</p>
+  <p class="neonJazzSession">The Starling – Raw Sessions</p>
    </header>
 
     <!-- 81 teclas: primera y última blancas -->
@@ -88,7 +88,7 @@
   </main>
 
   <button id="abrir-audio" class="tw-audio-btn">
-Escuchar piezas
+Escuchar pieza a pieza
  </button>
 
 <div id="tw-audio-modal" class="tw-audio-modal" hidden>
@@ -107,6 +107,9 @@ Escuchar piezas
 
 </div>
  
+ <div class="umbral-badge" aria-hidden="true">
+  UMBRAL <span data-umbral-readout>…</span>
+  </div>  
 
  <script src="js/Puerta-Ritmo.js" defer></script>
  <script src="js/thewalk-umbral-core.js" defer></script>
@@ -119,6 +122,8 @@ Escuchar piezas
       document.oncontextmenu = inhabilitar
   </script>
  
+<script src="js/audioEngine.js"></script>
+<script src="js/audioController.js"></script>
 </body>
 </html>
 

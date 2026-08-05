@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="css/core.css" />
 <link rel="stylesheet" href="css/Mapa.css"/>
 <link rel="stylesheet" href="css/umbral.css" />
+<link rel="stylesheet" href="css/sonido.css">
+
 
 </head>
 
@@ -29,7 +31,7 @@
      <div id="topo-overlay"></div>
     </section>
 
-
+    <button id="sonido" class="sonido-btn breath large">◯</button>
 
     <!-- POEMAS -->
     <section class="mapa__poemas" aria-labelledby="poemas-title">
@@ -41,13 +43,13 @@
         <a class="poema poema--wide is-active" href="Partitura-I-CircaStellas.html" data-poem="estorninos">Circa Stellas. Destilación. Oráculo.</a>
         <a class="poema poema--wide" href="Partitura-I-LosEstorninos.html" data-poem="EllaB">Los estorninos. Destilación. Oráculo.</a>
         <a class="poema poema--wide" href="IChing.html" data-poem="Oraculo">I CHING</a>
-
+        <a class="poema poema--wide" href="Puerta-Ritmo.html" data-poem="jazz session">JAZZ SESSION</a>
       
 
          <!--<a class="poema poema--wide" href="#partituras" data-poem="Oraculo">
           The Oracle Game
         </a>-->
-        <a class="poema poema--dot" href="#partituras" data-poem="poema-3">·</a>
+        
         <a class="poema poema--dot" href="#partituras" data-poem="poema-5">·</a>
         <a class="poema poema--dot" href="#partituras" data-poem="poema-6">·</a>
 
@@ -68,32 +70,28 @@
                playsinline
                preload="metadata"
                poster="graficos/fallback.jpg">
-          <source src="videos/fluxus-2.mp4" type="video/mp4">
+          <source src="graficos/videos/reposo/TWLK_pliegue_mapa.mp4" type="video/mp4">
         </video>
 
-        <h1 class="placeholder__h1">El Paseo</h1>
+        <h1 class="placeholder__h1">El Paseo. Arte y poesía.</h1>
 
         <p class="placeholder__text">
-         Poesía significa crear.
-Crear es abrir un espacio donde algo comienza a ser.
 
-Lo que vas a recorrer no es un discurso, sino una atmósfera.
-Un territorio simbólico donde palabra, ritmo e imagen se desplazan.
-
-Nada aquí es literal.
-Todo es metáfora en movimiento.
-
-Entra si deseas explorar.
-Detente si algo no resuena contigo.
-
-Este recorrido es libre y no requiere dejar datos ni huella.
-Para menores, se recomienda acompañamiento adulto cuando así se considere oportuno.
-
-Camina con atención.
-La experiencia ocurre entre lo que ves y lo que traes contigo.
-
-Aunque desde tu móvil puedes recorrer estos poemas, la mejor experincia será desde tu ordenador
-o incluso desde tu televisor.<br>Caminante si vas con prisa este no es un lugar para ti ahora mismo.
+Toda belleza habita en toda experiencia estética; toda experiencia estética vive en la poesía y
+toda poesía emana de aquellos constructores que conquistaron la belleza, los creadores.
+Poesía significa crear. Crear es abrir un espacio donde algo nuevo comienza a ser.<br> 
+The Walk es eso, aquí imagen y sonido son importantes, así que harás bien en escuchar con auriculares. 
+Haz click en la pantalla o sobre los botones que encontrarás para 
+escuchar el sonido y activar los videos. Los poemas de la entrada son la materia
+con la que se construyen los umbrales, espacios liminares entre el artista y la IA, un verdadero pliegue entre dos mundos. 
+La IA utiliza el alma de los navegadores (.html, .css y .js) para una conversión de los textos en imagen y sonido que no 
+están en la categoría de la mera ilustración, si no en la de transformaciones de un medio a otro a través de los algoritmos 
+de los scripts que domestican los impulsos eléctricos con la mágica idea del sistema numérico binario, con tan solo el número 0 y el 1 como números.<br>
+Gottfried Leibniz en el siglo XVIII documentó este sistema con origen en el I CHIN al que hacemos aquí un homenaje. Puedes echar las monedas
+y obtener tus exagramas para tus consultas.<br>
+A través de los umbrales se atraviesa a una zona, mónada, alma singular y de creación experimental hecha única y exclusivamente para mostrar el mundo 
+estético interior del artista conceptual catalán Acebuch. Puedes usar el contenido de este espacio libremente para lo que desees. <br>
+Si hay algo aquí que te sea útil a tus procesos creativos, úsalo con toda libertad. 
         </p>
  </div>
 
@@ -101,11 +99,31 @@ o incluso desde tu televisor.<br>Caminante si vas con prisa este no es un lugar 
 
   </main>
 
+   <div class="umbral-badge" aria-hidden="true">
+  UMBRAL <span data-umbral-readout>…</span>
+  </div>  
   
-  
+   <script src="js/core.js" defer></script>
    <script src="js/Mapa-TheWalk.js" defer></script>
    <script src="js/thewalk-umbral-core.js" defer></script>
    <script src="js/Mapa-Franja.js" defer></script>
+   <script src="js/arcilla-sound.js"></script>
+   <script src="js/sound-manager.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.querySelector('video');
+      if (video) {
+        // Intenta reproducir automáticamente
+        video.play().catch(function(error) {
+          // Si falla el autoarranque (por políticas del navegador), 
+          // no hacemos nada - el atributo autoplay debería funcionar
+          console.log('Auto-play requeriría interacción del usuario');
+        });
+      }
+    });
+  </script>
+
 
    <script>
    function inhabilitar(){

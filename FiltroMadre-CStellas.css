@@ -1,0 +1,73 @@
+:root{
+  --grain-master: 0.5;
+
+  --grain-a: 0.10;
+  --grain-b: 0.10;
+  --grain-c: 0.10;
+
+  --grain-size-a: 10px;
+  --grain-size-b: 10px;
+  --grain-size-c: 10px;
+
+  --grain-src: url("../graficos/arcillas/semilla.png");
+}
+
+html{
+  isolation: isolate;
+}
+
+
+html, body{ height:100%; }
+
+body{
+  position: relative;
+  background: #091d03e0;
+  color: #fdfffc00;
+}
+
+/* TEXTURA MADRE (encima de TODO) */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  pointer-events: none;
+
+  background-image: var(--grain-src), var(--grain-src), var(--grain-src);
+  background-repeat: repeat, repeat, repeat;
+
+  background-size:
+    var(--grain-size-a) var(--grain-size-a),
+    var(--grain-size-b) var(--grain-size-b),
+    var(--grain-size-c) var(--grain-size-c);
+
+  mix-blend-mode: soft-light;
+  opacity: calc(var(--grain-master) * 0.3);
+}
+
+/* capa extra para “asentar” */
+body::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: 999998;
+  pointer-events: none;
+
+  background-image: var(--grain-src);
+  background-repeat: repeat;
+  background-size: var(--grain-size-a) var(--grain-size-a);
+
+  mix-blend-mode: multiply;
+  opacity: calc(var(--grain-a) * var(--grain-master)* 0.95);
+}
+
+@media (prefers-reduced-motion: no-preference){
+  body::before{
+    transform: rotate(-0.25deg) scaleX(1.35) scaleY(0.95);
+    transform-origin: center;
+  }
+}
+
+@media (max-width: 600px){
+  :root{ --grain-master: 0.75; }
+}

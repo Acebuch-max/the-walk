@@ -8,12 +8,17 @@
   
   <link rel="stylesheet" href="css/core.css" />
   <link rel="stylesheet" href="css/Puerta-Umbral-LosEstorninos.css" />
+  <link rel="stylesheet" href="css/Puerta-Umbral.css" />
   <link rel="stylesheet" href="css/umbral.css" />
+  <link rel="stylesheet" href="css/sound-umbral.css" />
+  <link rel="stylesheet" href="css/sonido.css" />
   <!-- (Opcional) Fuente sistema, coherente con tu línea -->
   <meta name="color-scheme" content="dark light" />
 </head>
 
-<body class="tw umbral ella-b">
+<body data-page="Puerta-Umbral-LosEstorninos" class="tw umbral ella-b">
+
+  <button id="sound-toggle" type="button" aria-label="Sonido">SONIDO</button>
   
 <div id="Umbral">
   <svg id="geom" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
@@ -23,14 +28,10 @@
 
   <!-- CAMBIA ESTE href por el salto real -->
  <a id="origin-link"
-   href="Disparo-Estorninos.html?img=graficos/Ritmos/Primavera-2.jpg&next=Ritmo-1-LosEstorninos.html"
+   href="Disparo-Estorninos.html?img=graficos/arcillas/arcilla_revelada.png&next=Galeria_Virtual/B.html"
    aria-label="Disparo">
-  <span id="origin-dot"></span>
+  <span id="origin-dot"id="formato-origin-link"></span>
 </a>
-
-
-  <button id="sound-toggle" type="button" aria-label="Sonido">SONIDO</button>
-</div>
 
 <a id="return-link" href="Partitura-I-LosEstorninos.html" aria-label="Volver a Mapa">
   <span class="return-dot"></span>
@@ -57,5 +58,9 @@
 
  
  
+<script src="js/audioEngine.js"></script>
+<script src="js/audioController.js"></script>
+<script src="js/sound-config.js"></script>
+
 </body>
 </html>

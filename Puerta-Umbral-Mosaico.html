@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Puerta-Umbral · Circa Stellas</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/mosaico.css" />
+  <link rel="stylesheet" href="css/sound-umbral.css" />
+  
+  
+</head>
+<body class="circa-stellas" data-page="umbral">
+
+  <div class="contenedor-principal">
+    <!-- Mosaico generado por JS -->
+    <div id="mosaico"></div>
+  </div>
+
+  <!-- Botón de sonido -->
+  <button id="sound-toggle">
+    <span class="icon"></span> ESCUCHAR
+  </button>
+
+      <!-- ========================================================== -->
+    <!-- NUEVO BOTÓN DE DISPARO A LA GALERÍA VIRTUAL                -->
+    <!-- ========================================================== -->
+    <a id="disparo-btn" 
+       href="Disparo-Mosaico.html"
+       aria-label="Ir a la Galería Virtual">
+       <span class="icon"></span> HACIA EL INTERIOR DE LA MÓNADA
+    </a>
+
+  <!-- Enlaces -->
+  <div class="enlaces">
+    <a id="origin-link" href="Partitura-I.html">← Partitura</a>
+    <a id="return-link" href="Partitura-II.html">Siguiente →</a>
+  </div>
+
+   <div class="umbral-badge" aria-hidden="true">
+  UMBRAL <span data-umbral-readout>…</span>
+  </div>  
+  
+  <!-- Scripts -->
+  <script src="js/thewalk-umbral-core.js"></script>
+  <script src="js/twlk-breath.js"></script>
+  <script src="js/audioEngine.js"></script>
+  <script src="js/audioController.js"></script>
+  <script src="js/analizador-fonetico.js"></script>
+  <script src="js/mosaico-teselado.js"></script>
+  <script src="js/Puerta-Umbral.js"></script>
+  <script src="js/sound-config.js"></script>
+  
+</body>
+</html>

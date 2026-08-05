@@ -1,0 +1,18 @@
+{
+  "id": "ella-b",
+  "scores": {
+    "threshold": 0.143,
+    "negation": 0.048,
+    "cold": 0.048,
+    "affection": 0.048,
+    "invocation": 0.095,
+    "motion": 0.0
+  },
+  "umbral": {
+    "apertura": 0.167,
+    "dispersion": 0.0,
+    "atraccion_central": 0.038,
+    "inestabilidad": 0.029,
+    "retorno": 0.057
+  }
+}

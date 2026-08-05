@@ -6,8 +6,10 @@
   <title>Disparo</title>
   <link rel="stylesheet" href="css/Disparo.css" />
   <link rel="stylesheet" href="css/umbral.css" />
+  <link rel="stylesheet" href="css/sonido.css" />
+  
 </head>
-<body>
+<body data-page="Disparo-Estorninos">
 
   <canvas id="c"></canvas>
 
@@ -15,22 +17,32 @@
     <div id="hint">DISPARO</div>
   </div>
 
-  <a id="next-link" href="Ritmo-1-LosEstorninos.html" aria-label="Continuar">Continuar</a>
+  <!-- ============================================ -->
+  <!-- BOTÓN DE SONIDO UNIVERSAL                    -->
+  <!-- ============================================ -->
+  <button id="sonido" class="sonido-btn breath large">◯</button>
 
   <div class="umbral-badge" aria-hidden="true">
   UMBRAL <span data-umbral-readout>…</span>
   </div>  
 
-  <script src="js/Disparo.js" defer></script>
+  <script src="js/Disparo-III.js" defer></script>
   <script src="js/thewalk-umbral-core.js" defer></script>
+  
 
-   <script>
+<script>
    function inhabilitar(){
           alert ("Obra creada por Acebuch bajo Licencia de copyright.")
           return false
       }
       document.oncontextmenu = inhabilitar
   </script>
+<script src="js/audioEngine.js"></script>
+<script src="js/audioController.js"></script>
+<script src="js/arcilla-sound.js"></script>
+<script src="js/sound-manager.js"></script>
+<script src="js/sound-config.js"></script>
+
 </body>
 </html>
 

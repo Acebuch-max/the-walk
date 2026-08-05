@@ -6,16 +6,22 @@
   <title>Disparo</title>
   <link rel="stylesheet" href="css/Disparo.css" />
   <link rel="stylesheet" href="css/umbral.css" />
+  <link rel="stylesheet" href="css/sonido.css" />
 </head>
-<body>
+<body data-page="Disparo-CircaStellas">
 
   <canvas id="c"></canvas>
+
+  <!-- ============================================ -->
+  <!-- BOTÓN DE SONIDO UNIVERSAL                    -->
+  <!-- ============================================ -->
+  <button id="sonido" class="sonido-btn breath large">◯</button>
 
   <div id="hud" aria-hidden="true">
     <div id="hint">DISPARO</div>
   </div>
 
-  <a id="next-link" href="Partitura-I-CircaStellas.html" aria-label="Continuar">Continuar</a>
+  <a id="next-link" href="Puerta-Umbral-CircaStellas-II.html" aria-label="Continuar">Continuar</a>
 
   <div class="umbral-badge" aria-hidden="true">
   UMBRAL <span data-umbral-readout>…</span>
@@ -23,6 +29,7 @@
 
   <script src="js/Disparo.js" defer></script>
   <script src="js/thewalk-umbral-core.js" defer></script>
+  
 
 <script>
    function inhabilitar(){
@@ -31,6 +38,12 @@
       }
       document.oncontextmenu = inhabilitar
   </script>
+<script src="js/audioEngine.js"></script>
+<script src="js/audioController.js"></script>
+<script src="js/arcilla-sound.js"></script>
+<script src="js/sound-manager.js"></script>
+<script src="js/sound-config.js"></script>
+
 </body>
 </html>
 

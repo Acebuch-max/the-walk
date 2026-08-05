@@ -1,58 +1,46 @@
-<!-- Puerta-Umbral.html -->
 <!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Puerta · Umbral</title>
-  
+  <title>Puerta · Umbral Circa Stellas</title>
   <link rel="stylesheet" href="css/core.css" />
   <link rel="stylesheet" href="css/Puerta-Umbral-CircaStellas.css" />
+  <link rel="stylesheet" href="css/Puerta-Umbral.css" />
+  <link rel="stylesheet" href="css/FiltroMadre-CStellas.css" />
   <link rel="stylesheet" href="css/umbral.css" />
-  <!-- (Opcional) Fuente sistema, coherente con tu línea -->
-  <meta name="color-scheme" content="dark light" />
 </head>
+<body data-page="Puerta-Umbral-CircaStellas" class="tw umbral circa-stellas">
 
-<body class="tw umbral circa-stellas">
-  
-<div id="Umbral">
-  <svg id="geom" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
-    <path id="band-fill" d=""></path>
-    <path id="band-stroke" d=""></path>
-  </svg>
+  <div id="Umbral">
+    <svg id="geom" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+      <path id="band-fill" d=""></path>
+      <path id="band-stroke" d=""></path>
+    </svg>
+    
+     <!-- Enlace de retorno al mapa (lo que ya tenías) -->
+  <a id="return-link" href="Mapa-TheWalk.html" aria-label="Volver a Mapa">
+    <span class="return-dot"><p id="disparo"></p></span>
+  </a>
 
-  <!-- CAMBIA ESTE href por el salto real -->
- <a id="origin-link"
-   href="Disparo-CircaStellas.html?img=graficos/PUERTAS/LaReinaDelCielo.jpg&next=Puerta-Umbral-CircaStellas.html"
-   aria-label="Disparo">
-  <span id="origin-dot"><p id="disparo">El sol-atravesar</p></span>
-</a>
+    <!-- Disparo original (la esfera que gira alrededor) -->
+    <a id="origin-link" href="Disparo-CircaStellas.html" aria-label="Disparo">
+      <span id="origin-dot"><p id="disparo"></p></span>
+    </a>
 
-  <button id="sound-toggle" type="button" aria-label="Sonido">SONIDO</button>
-</div>
+    <!-- BOTÓN DE SONIDO (El que ya tenías) -->
+    <button id="sound-toggle" type="button" aria-label="Sonido">SONIDO</button>
 
-<a id="return-link" href="Mapa-TheWalk.html" aria-label="Volver a Mapa">
-  <span class="return-dot"><p id="disparo">La Tierra-volver</p></span>
-</a>
+  </div>
 
-<div class="umbral-badge" aria-hidden="true">
-  UMBRAL <span data-umbral-readout>…</span>
-</div>
-
-<script src="js/core.js" defer></script>
-<script src="js/arcilla-bridge.js" defer></script>
-<script src="js/topologias.js" defer></script>
-<script src="js/perfiles.js" defer></script>
-<script src="js/Puerta-Umbral-CircaStellas.js" defer></script>
-<script src="js/Puerta-Umbral-LosEstorninos.js" defer></script>
-<script src="js/thewalk-umbral-core.js" defer></script>
  
- <script>
-   function inhabilitar(){
-          alert ("Obra creada por Acebuch bajo Licencia de copyright.")
-          return false
-      }
-      document.oncontextmenu = inhabilitar
-  </script>
+
+  <div class="umbral-badge" aria-hidden="true">UMBRAL <span data-umbral-readout>…</span></div>
+  
+  <!-- Scripts -->
+  <script src="js/Puerta-Umbral-CircaStellas.js" defer></script>
+  <script src="js/thewalk-umbral-core.js" defer></script>
+  <script src="js/sound-config.js"></script>
+  
 </body>
 </html>

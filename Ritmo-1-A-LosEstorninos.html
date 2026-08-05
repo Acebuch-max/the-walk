@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RITMO-1</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      font-family: Arial, sans-serif;
+      color: #fff;
+    }
+
+    #ui {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      border-radius: 10px;
+      max-width: 320px;
+    }
+
+    #ui label {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    #ui input,
+    #ui button {
+      font-size: 13px;
+    }
+
+    #ui button {
+      cursor: pointer;
+      padding: 8px 10px;
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      border-radius: 6px;
+    }
+
+    #ui button:hover {
+      background: #1c1c1c;
+    }
+
+    #status {
+      font-size: 12px;
+      line-height: 1.4;
+      opacity: 0.85;
+    }
+
+    #ritmoCanvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    @media (max-width: 768px) {
+      #ui {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body data-page="Ritmo-1-A-LosEstorninos">
+
+  <div id="ui">
+    <label>
+      Imagen JPG / PNG
+      <input type="file" id="imageUpload" accept="graficos/Ritmos/Primavera-2.jpg" />
+    </label>
+
+    <label>
+      Audio MP3 / WAV
+      <input type="file" id="audioUpload" accept="audio/Sesión Mi-m-Nada ahí fuera-3.mp3" />
+    </label>
+
+    <button id="playButton">Activar / Reproducir</button>
+    <button id="toggleMode">Modo: Reconstrucción</button>
+
+    <div id="status">
+      Carga una imagen y un audio.<br>
+      El sistema separará automáticamente zonas cromáticas y las convertirá en enjambres.
+    </div>
+  </div>
+
+  <canvas id="ritmoCanvas"></canvas>
+
+ <div class="umbral-badge" aria-hidden="true">
+  UMBRAL <span data-umbral-readout>…</span>
+  </div>  
+  
+  <script>
+    const canvas = document.getElementById("ritmoCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const imageUpload = document.getElementById("imageUpload");
+    const audioUpload = document.getElementById("audioUpload");
+    const playButton = document.getElementById("playButton");
+    const toggleMode = document.getElementById("toggleMode");
+    const statusBox = document.getElementById("status");
+
+    let W = canvas.width = window.innerWidth;
+    let H = canvas.height = window.innerHeight;
+
+    let audioContext = null;
+    let analyser = null;
+    let sourceNode = null;
+    let audioElement = null;
+    let frequencyData = null;
+    let audioReady = false;
+
+    let particles = [];
+    let imageReady = false;
+    let mode = "reconstruct"; // reconstruct | dispersion
+
+    let time = 0;
+
+    const CONFIG = {
+      sampleStep: 5,          // menor = más puntos
+      particleSize: 1.4,
+      baseReturn: 0.05,
+      friction: 0.88,
+      jitterBase: 0.15,
+      bandInfluence: 1.0,
+      maxOffset: 36,
+      driftScale: 0.012,
+      hueGroups: 6,
+      saturationThreshold: 0.18,
+      lightDarkThreshold: 0.22,
+      brightnessThreshold: 0.82,
+      alphaThreshold: 30
+    };
+
+    window.addEventListener("resize", () => {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    });
+
+    function clamp(v, min, max) {
+      return Math.max(min, Math.min(max, v));
+    }
+
+    function map(value, inMin, inMax, outMin, outMax) {
+      return outMin + (outMax - outMin) * ((value - inMin) / (inMax - inMin));
+    }
+
+    function rgbToHsl(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+
+      if (max === min) {
+        h = s = 0;
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+
+        h /= 6;
+      }
+
+      return { h, s, l };
+    }
+
+    function getColorGroup(r, g, b) {
+      const { h, s, l } = rgbToHsl(r, g, b);
+
+      if (l < CONFIG.lightDarkThreshold) return 0;        // oscuros
+      if (l > CONFIG.brightnessThreshold) return 1;       // claros
+      if (s < CONFIG.saturationThreshold) return 2;       // neutros
+
+      const hueIndex = Math.floor(h * CONFIG.hueGroups);
+      return 3 + hueIndex;                                // cromáticos
+    }
+
+    function getBandValues() {
+      if (!analyser || !frequencyData) {
+        return {
+          sub: 0,
+          bass: 0,
+          lowMid: 0,
+          mid: 0,
+          highMid: 0,
+          high: 0,
+          air: 0,
+          overall: 0
+        };
+      }
+
+      analyser.getByteFrequencyData(frequencyData);
+
+      const ranges = {
+        sub: [0, 4],
+        bass: [4, 12],
+        lowMid: [12, 28],
+        mid: [28, 56],
+        highMid: [56, 90],
+        high: [90, 140],
+        air: [140, frequencyData.length - 1]
+      };
+
+      function avgRange(start, end) {
+        let sum = 0;
+        let count = 0;
+        for (let i = start; i <= end && i < frequencyData.length; i++) {
+          sum += frequencyData[i];
+          count++;
+        }
+        return count ? sum / count : 0;
+      }
+
+      const out = {};
+      let total = 0;
+      let totalCount = 0;
+
+      for (const key in ranges) {
+        const [a, b] = ranges[key];
+        out[key] = avgRange(a, b) / 255;
+      }
+
+      for (let i = 0; i < frequencyData.length; i++) {
+        total += frequencyData[i];
+        totalCount++;
+      }
+
+      out.overall = totalCount ? (total / totalCount) / 255 : 0;
+      return out;
+    }
+
+    function bandForGroup(groupId) {
+      const mapping = [
+        "sub",      // 0 oscuros
+        "air",      // 1 claros
+        "mid",      // 2 neutros
+        "bass",     // 3
+        "lowMid",   // 4
+        "mid",      // 5
+        "highMid",  // 6
+        "high",     // 7
+        "air",      // 8
+        "bass",     // 9
+        "mid"       // extra seguridad
+      ];
+
+      return mapping[groupId] || "mid";
+    }
+
+    class Particle {
+      constructor(x, y, color, groupId) {
+        this.baseX = x;
+        this.baseY = y;
+        this.x = x + (Math.random() - 0.5) * 10;
+        this.y = y + (Math.random() - 0.5) * 10;
+        this.vx = 0;
+        this.vy = 0;
+        this.color = color;
+        this.groupId = groupId;
+        this.size = CONFIG.particleSize + Math.random() * 0.8;
+        this.phase = Math.random() * Math.PI * 2;
+        this.seed = Math.random() * 1000;
+      }
+
+      update(audio, t) {
+        const bandName = bandForGroup(this.groupId);
+        const amp = audio[bandName] || 0;
+        const overall = audio.overall || 0;
+
+        const localNoiseX = Math.sin(t * 0.03 + this.seed) * (0.5 + amp * 4.0);
+        const localNoiseY = Math.cos(t * 0.025 + this.seed * 1.37) * (0.5 + amp * 4.0);
+
+        const oscX = Math.sin(t * 0.05 + this.phase) * amp * CONFIG.maxOffset;
+        const oscY = Math.cos(t * 0.045 + this.phase * 1.2) * amp * CONFIG.maxOffset;
+
+        let targetX = this.baseX;
+        let targetY = this.baseY;
+
+        if (mode === "dispersion") {
+          targetX += oscX * 1.5 + localNoiseX * 6;
+          targetY += oscY * 1.5 + localNoiseY * 6;
+        } else {
+          targetX += oscX * 0.55 + localNoiseX * 1.8;
+          targetY += oscY * 0.55 + localNoiseY * 1.8;
+        }
+
+        const dx = targetX - this.x;
+        const dy = targetY - this.y;
+
+        const returnForce = CONFIG.baseReturn + overall * 0.03;
+        this.vx += dx * returnForce;
+        this.vy += dy * returnForce;
+
+        this.vx += (Math.random() - 0.5) * CONFIG.jitterBase * (1 + amp * 10);
+        this.vy += (Math.random() - 0.5) * CONFIG.jitterBase * (1 + amp * 10);
+
+        this.vx *= CONFIG.friction;
+        this.vy *= CONFIG.friction;
+
+        this.x += this.vx;
+        this.y += this.vy;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.fillStyle = this.color;
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function clearScene(alpha = 0.16) {
+      ctx.fillStyle = `rgba(0,0,0,${alpha})`;
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    function loadImageFromFile(file) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = URL.createObjectURL(file);
+      });
+    }
+
+    function buildParticlesFromImage(img) {
+      particles = [];
+
+      const tempCanvas = document.createElement("canvas");
+      const tempCtx = tempCanvas.getContext("2d");
+
+      const aspect = img.width / img.height;
+      let drawW = W;
+      let drawH = W / aspect;
+
+      if (drawH > H) {
+        drawH = H;
+        drawW = H * aspect;
+      }
+
+      const offsetX = (W - drawW) * 0.5;
+      const offsetY = (H - drawH) * 0.5;
+
+      tempCanvas.width = Math.floor(drawW);
+      tempCanvas.height = Math.floor(drawH);
+
+      tempCtx.drawImage(img, 0, 0, tempCanvas.width, tempCanvas.height);
+      const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+      const data = imageData.data;
+
+      const step = CONFIG.sampleStep;
+
+      for (let y = 0; y < tempCanvas.height; y += step) {
+        for (let x = 0; x < tempCanvas.width; x += step) {
+          const index = (y * tempCanvas.width + x) * 4;
+          const r = data[index];
+          const g = data[index + 1];
+          const b = data[index + 2];
+          const a = data[index + 3];
+
+          if (a < CONFIG.alphaThreshold) continue;
+
+          const brightness = (r + g + b) / 3;
+          if (brightness < 8) continue;
+
+          const groupId = getColorGroup(r, g, b);
+          const color = `rgba(${r},${g},${b},0.92)`;
+
+          particles.push(
+            new Particle(
+              offsetX + x,
+              offsetY + y,
+              color,
+              groupId
+            )
+          );
+        }
+      }
+
+      imageReady = true;
+      statusBox.innerHTML = `
+        Imagen analizada.<br>
+        Partículas: ${particles.length}<br>
+        Capas cromáticas automáticas activas.
+      `;
+    }
+
+    function setupAudio(file) {
+      return new Promise((resolve, reject) => {
+        try {
+          if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          }
+
+          if (audioElement) {
+            audioElement.pause();
+            audioElement.src = "";
+          }
+
+          audioElement = new Audio();
+          audioElement.src = URL.createObjectURL(file);
+          audioElement.crossOrigin = "anonymous";
+          audioElement.loop = true;
+
+          if (sourceNode) {
+            try { sourceNode.disconnect(); } catch (e) {}
+          }
+
+          analyser = audioContext.createAnalyser();
+          analyser.fftSize = 512;
+          analyser.smoothingTimeConstant = 0.82;
+
+          sourceNode = audioContext.createMediaElementSource(audioElement);
+          sourceNode.connect(analyser);
+          analyser.connect(audioContext.destination);
+
+          frequencyData = new Uint8Array(analyser.frequencyBinCount);
+          audioReady = true;
+
+          resolve();
+        } catch (err) {
+          reject(err);
+        }
+      });
+    }
+
+    async function startAudio() {
+      if (!audioReady || !audioElement || !audioContext) return;
+
+      if (audioContext.state === "suspended") {
+        await audioContext.resume();
+      }
+
+      await audioElement.play();
+      statusBox.innerHTML += `<br>Audio activo.`;
+    }
+
+    imageUpload.addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      try {
+        statusBox.innerHTML = "Analizando imagen...";
+        const img = await loadImageFromFile(file);
+        buildParticlesFromImage(img);
+      } catch (err) {
+        console.error(err);
+        statusBox.innerHTML = "Error al cargar la imagen.";
+      }
+    });
+
+    audioUpload.addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      try {
+        statusBox.innerHTML += `<br>Preparando audio...`;
+        await setupAudio(file);
+        statusBox.innerHTML += `<br>Audio cargado.`;
+      } catch (err) {
+        console.error(err);
+        statusBox.innerHTML += `<br>Error al cargar el audio.`;
+      }
+    });
+
+    playButton.addEventListener("click", async () => {
+      try {
+        await startAudio();
+      } catch (err) {
+        console.error(err);
+        statusBox.innerHTML += `<br>No se pudo reproducir el audio.`;
+      }
+    });
+
+    toggleMode.addEventListener("click", () => {
+      mode = mode === "reconstruct" ? "dispersion" : "reconstruct";
+      toggleMode.textContent = mode === "reconstruct"
+        ? "Modo: Reconstrucción"
+        : "Modo: Dispersión";
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+      time++;
+
+      const audio = getBandValues();
+      clearScene(0.18);
+
+      if (!imageReady) {
+        ctx.fillStyle = "rgba(255,255,255,0.75)";
+        ctx.font = "16px Arial";
+        ctx.fillText("Carga una imagen para iniciar el campo cromático.", 40, H - 60);
+      }
+
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update(audio, time);
+        particles[i].draw();
+      }
+    }
+
+    animate();
+  </script>
+<script src="js/audioEngine.js"></script>
+<script src="js/audioController.js"></script>
+</body>
+</html>

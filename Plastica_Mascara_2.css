@@ -1,0 +1,189 @@
+/* ============================================================
+   THE WALK — CMYK Projection System (PNG as texture, not mask)
+   - 4 capas: C / M / Y / K
+   - PNG tramado = “materia” proyectada
+   - Compatible Firefox/Chrome (sin mask-image)
+   ============================================================ */
+
+/* 1) Diales globales */
+:root{
+  --cmyk-contrast: 1.35;   /* 1 = neutro */
+  --cmyk-bright:   1.05;
+  --cmyk-gamma:    1;      /* lo simulamos con contrast/brightness */
+  --cmyk-blur:     0px;    /* 0–1px suaviza trama si molesta */
+}
+html.crmyk.cmyk--doo{
+  --cmyk-contrast: 1.9;
+  --cmyk-bright: 1.1;
+  --a-c: 0.14; --a-m: 0.12; --a-y: 0.10; --a-k: 0.12;
+  --cmyk-repeat: no-repeat;
+  --cmyk-size: cover;
+  --blend-layer: multiply;
+  --blend-ink: overlay;
+}
+
+html.cmyk::before,
+html.cmyk::after,
+html.cmyk body::before,
+html.cmyk body::after{
+  filter:
+    contrast(var(--cmyk-contrast))
+    brightness(var(--cmyk-bright))
+    blur(var(--cmyk-blur));
+}
+
+:root{
+  /* ON/OFF general */
+  --cmyk-on: 1; /* 0 = apagado, 1 = encendido */
+
+  /* Orden de apilado */
+  --cmyk-z: 9990;
+
+  /* Encaje de textura */
+  --cmyk-repeat: no-repeat;
+  --cmyk-size: 100% %;    /* o 110% 110% para un zoom leve */
+  --cmyk-position: center;
+
+  /* Microgesto (desregistro) */
+  --cmyk-shift-c:  0px  0px;
+  --cmyk-shift-m:  1px  0px;
+  --cmyk-shift-y:  0px  1px;
+  --cmyk-shift-k: -1px  0px;
+
+  /* Opacidad por canal (baja, tipo tinta) */
+  --a-c: 0.06;
+  --a-m: 0.05;
+  --a-y: 0.04;
+  --a-k: 0.03;
+
+  /* Colores “tinta” (ajustables) */
+  --ink-c: rgb(0, 170, 255);
+  --ink-m: rgb(255, 0, 170);
+  --ink-y: rgb(255, 230, 0);
+  --ink-k: rgb(0, 0, 0);
+
+  /* Mezcla (sensación de impresión) */
+  --blend-layer: multiply;   /* multiply suele ser el más “offset” */
+  --blend-ink: multiply;
+
+  /* RUTAS a tus PNG (pon aquí los nombres reales) */
+  --tex-c: url("../graficos/CMYK/C_Petirrojo-C-BN.png");
+  --tex-m: url("../graficos/CMYK/C_Petirrojo-M-BN.png"); /* el que adjuntaste */
+  --tex-y: url("../graficos/CMYK/C_Petirrojo-Y-BN.png");
+  --tex-k: url("../graficos/CMYK/C_Petirrojo-K-BN.png");
+}
+
+/*:root{ --a-c:.07; --a-m:.09; --a-y:.06; --a-k:0.3; }*/
+
+
+/* 2) Base: las 4 capas existen pero no estorban */
+html.cmyk::before,
+html.cmyk::after,
+html.cmyk body::before,
+html.cmyk body::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+
+  /* Por seguridad: si --cmyk-on = 0, desaparece todo */
+  opacity: 0;
+  z-index: var(--cmyk-z);
+
+  /* La textura se “imprime” sobre el contenido */
+  mix-blend-mode: var(--blend-layer);
+
+  /* Rendimiento */
+  will-change: transform, opacity;
+}
+
+/* 3) Activación real */
+html.cmyk.cmyk--on::before,
+html.cmyk.cmyk--on::after,
+html.cmyk.cmyk--on body::before,
+html.cmyk.cmyk--on body::after{
+  opacity: var(--cmyk-on);
+}
+
+/* 4) CANAL C */
+html.cmyk.cmyk--on::before{
+  z-index: calc(var(--cmyk-z) + 1);
+  opacity: calc(var(--cmyk-on) * var(--a-c));
+
+  background-image: var(--tex-c);
+  background-size: var(--cmyk-size);
+  background-position: var(--cmyk-position);
+  background-repeat: var(--cmyk-repeat);
+
+  /* “Tinta” encima de la textura */
+  background-color: var(--ink-c);
+  background-blend-mode: var(--blend-ink);
+
+  transform: translate(var(--cmyk-shift-c));
+}
+
+/* 5) CANAL M */
+html.cmyk.cmyk--on::after{
+  z-index: calc(var(--cmyk-z) + 2);
+  opacity: calc(var(--cmyk-on) * var(--a-m));
+
+  background-image: var(--tex-m);
+  background-size: var(--cmyk-size);
+  background-position: var(--cmyk-position);
+  background-repeat: var(--cmyk-repeat);
+
+  background-color: var(--ink-m);
+  background-blend-mode: var(--blend-ink);
+
+  transform: translate(var(--cmyk-shift-m));
+}
+
+/* 6) CANAL Y */
+html.cmyk.cmyk--on body::before{
+  z-index: calc(var(--cmyk-z) + 3);
+  opacity: calc(var(--cmyk-on) * var(--a-y));
+
+  background-image: var(--tex-y);
+  background-size: var(--cmyk-size);
+  background-position: var(--cmyk-position);
+  background-repeat: var(--cmyk-repeat);
+
+  background-color: var(--ink-y);
+  background-blend-mode: var(--blend-ink);
+
+  transform: translate(var(--cmyk-shift-y));
+}
+
+/* 7) CANAL K */
+html.cmyk.cmyk--on body::after{
+  z-index: calc(var(--cmyk-z) + 4);
+  opacity: calc(var(--cmyk-on) * var(--a-k));
+
+  background-image: var(--tex-k);
+  background-size: var(--cmyk-size);
+  background-position: var(--cmyk-position);
+  background-repeat: var(--cmyk-repeat);
+
+  background-color: var(--ink-k);
+  background-blend-mode: var(--blend-ink);
+
+  /* K suele “asentar” más si la capa mezcla en multiply */
+  mix-blend-mode: multiply;
+
+  transform: translate(var(--cmyk-shift-k));
+}
+
+/* 8) Recomendación: aislar el “campo” de mezcla */
+html.cmyk{
+  isolation: isolate;
+}
+
+/* 9) Reduce motion */
+@media (prefers-reduced-motion: reduce){
+  html.cmyk.cmyk--on::before,
+  html.cmyk.cmyk--on::after,
+  html.cmyk.cmyk--on body::before,
+  html.cmyk.cmyk--on body::after{
+    transform: none;
+  }
+}

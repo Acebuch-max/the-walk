@@ -1,0 +1,192 @@
+/* css/mosaico.css */
+#mosaico {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
+  background: #0a0a0a;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+
+#mosaico canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  background: transparent;
+}
+
+/* Breath indicator integrado */
+.breath-indicator {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: rgba(255,255,255,0.7);
+  transition: all 0.6s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.breath-indicator.reposo {
+  border-color: rgba(100,200,255,0.3);
+  color: rgba(100,200,255,0.6);
+}
+
+.breath-indicator.equilibrio {
+  border-color: rgba(255,220,100,0.4);
+  color: rgba(255,220,100,0.8);
+}
+
+.breath-indicator.plenitud {
+  border-color: rgba(255,120,120,0.5);
+  color: rgba(255,120,120,1);
+  box-shadow: 0 0 30px rgba(255,120,120,0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #mosaico canvas {
+    aspect-ratio: 1 / 1;
+  }
+  .breath-indicator {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+    bottom: 16px;
+    right: 16px;
+  }
+}
+ body {
+      margin: 0;
+      padding: 0;
+      background: #0a0a0a;
+      color: #fff;
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .contenedor-principal {
+      width: 100%;
+      max-width: 1280px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    #mosaico {
+      margin-top: 40px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+    .enlaces {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 2000;
+      display: flex;
+      gap: 16px;
+    }
+    .enlaces a {
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      transition: color 0.3s;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+      background: rgba(0,0,0,0.3);
+    }
+    .enlaces a:hover {
+      color: rgba(255,255,255,0.8);
+    }
+    @media (max-width: 768px) {
+      .enlaces {
+        top: 12px;
+        right: 12px;
+        gap: 8px;
+      }
+      .enlaces a {
+        font-size: 0.6rem;
+        padding: 4px 10px;
+      }
+    }
+
+    /* css/Puerta-Umbral-CircaStellas.css */
+
+/* --- ESTILO DEL BOTÓN DE DISPARO (CLON DEL BOTÓN DE SONIDO) --- */
+#disparo-btn {
+  position: fixed;
+  top: 50%;              /* Un poco más abajo que el de sonido (que está al 25%) */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  border: none;
+  background: rgba(100, 200, 255, 0.12); /* Azul etéreo en lugar de verde */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 0 40px rgba(0,0,0,0.3), inset 0 0 60px rgba(100,200,255,0.05);
+  color: rgba(255,255,255,0.9);
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  text-transform: uppercase;
+  user-select: none;
+  text-decoration: none; /* Para que no se subraye si es un enlace */
+}
+
+#disparo-btn:hover {
+  background: rgba(100, 200, 255, 0.2);
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 0 60px rgba(100, 200, 255, 0.15);
+}
+
+#disparo-btn:active {
+  transform: translateX(-50%) scale(0.95);
+}
+
+#disparo-btn .icon {
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  #disparo-btn {
+    width: 7rem;
+    height: 7rem;
+    font-size: 0.85rem;
+    top: 30%;
+  }
+  #disparo-btn .icon {
+    font-size: 1.2rem;
+  }
+}

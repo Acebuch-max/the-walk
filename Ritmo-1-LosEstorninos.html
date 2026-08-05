@@ -6,7 +6,7 @@
   <title>Ritmo 1 Los estorninos</title>
   <link rel="stylesheet" href="css/ritmo-1-LosEstorninos.css" />
 </head>
-<body>
+<body data-page="Ritmo-1-LosEstorninos">
 
   <div id="ui">
     <button id="startButton">Activar sonido</button>
@@ -39,8 +39,11 @@
 
   <canvas id="ritmoCanvas"></canvas>
 
-  <script src="js/ritmo-1-LosEstorninos.js" defer></script>
+   <div class="umbral-badge" aria-hidden="true">
+  UMBRAL <span data-umbral-readout>…</span>
+  </div>  
   
+  <script src="js/ritmo-1-LosEstorninos.js" defer></script>
 <script>
    function inhabilitar(){
           alert ("Obra creada por Acebuch bajo Licencia de copyright.")
@@ -48,5 +51,7 @@
       }
       document.oncontextmenu = inhabilitar
   </script>
+<script src="js/audioEngine.js"></script>
+<script src="js/audioController.js"></script>
 </body>
 </html>

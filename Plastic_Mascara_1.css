@@ -1,0 +1,57 @@
+/* ============================================================
+   THE WALK — Door: Painting + Coarse Halftone (minimal)
+   - 1 imagen (cuadro) + 1 trama
+   - 2 diales: tamaño de trama y opacidad
+   ============================================================ */
+
+:root{
+  --ht-step: 14px;   /* separación de puntos (sube = más grueso) */
+  --ht-dot:  6px;    /* tamaño del punto (sube = más tinta) */
+  --ht-alpha: .35;   /* fuerza de la trama (0–1) */
+}
+
+/* 1) El cuadro */
+body.door--halftone{
+  /* pon aquí TU ruta real del jpg */
+  background-image: url("../ElVueloDeLosEstorninos/graficos/Ruido_1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* el cuadro debe leerse */
+  background-color: #d7d7d7;
+
+  /* importante para mezclar sin “contaminar” el resto */
+  isolation: isolate;
+}
+
+/* 2) La trama (una sola capa) */
+body.door--halftone::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9990;
+
+  /* Trama gruesa generada por CSS (puntos) */
+  background-image:
+    radial-gradient(circle,
+      rgba(0,0,0,var(--ht-alpha)) 0 var(--ht-dot),
+      transparent calc(var(--ht-dot) + 0.5px) var(--ht-step)
+    );
+
+  /* separación real de la retícula */
+  background-size: var(--ht-step) var(--ht-step);
+  background-position: 0 0;
+
+  /* “impresión”: la trama oscurece, no tiñe */
+  mix-blend-mode: multiply;
+  opacity: 1;
+}
+
+/* 3) Un pequeño desvío para que no parezca patrón perfecto (opcional, sin diales) */
+@media (prefers-reduced-motion: no-preference){
+  body.door--halftone::before{
+    transform: translate3d(1px, 1px, 0);
+  }
+}

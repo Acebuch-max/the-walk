@@ -6,46 +6,87 @@
   <title>Umbral</title>
   <link rel="stylesheet" href="css/core.css" />
   <link rel="stylesheet" href="css/index.css" />
-  <link rel="stylesheet" href="css/umbral.css" />
+  <link rel="stylesheet" href="css/sonido.css" />
 </head>
 
 <body class="layout">
 
+  <!-- Language Switch -->
   <nav class="lang-switch">
-  <a href="Mapa/ES/index.html" class="lang">ES</a>
-  <a href="Mapa/EN/index.html" class="lang">EN</a>
+    <a href="Mapa/ES/index.html" class="lang">ES</a>
+    <a href="Mapa/EN/index.html" class="lang">EN</a>
   </nav>
 
-  <!-- Franja 1: marca -->
-  <div class="franja-1">
+  <!-- Franja 1 -->
+  <!--<div class="franja-1">
     <a class="btn-tienda" href="https://www.acebuchdownload.com/" aria-label="Ir a tienda">acebuchdownload.art</a>
-  </div>
+  </div>-->
 
-  <!-- Franja 2: imagen -->
+  <!-- Franja 2: imagen + video -->
   <div class="franja-2">
-    <a class="umbral-link" href="Mapa-TheWalk.html" aria-label="Entrar a Partitura">
-      <img class="umbral-img" src="graficos/umbral_es.png" alt="The Walk">
-    </a>
+    <div class="capas-container">
+      <!-- Capa 1: Video -->
+      <div class="capa-video">
+        <video id="umbral-video" class="umbral-img" src="graficos/videos/reposo/TWLK_pliegue_portada.mp4" autoplay muted loop playsinline></video>
+      </div>
+      
+      <!-- Capa 2: Imagen -->
+      <a class="umbral-link" href="Mapa-TheWalk.html" aria-label="Entrar a Partitura">
+        <img id="umbral-imagen" class="umbral-img img-superpuesta" src="graficos/arcillas/semilla.png" alt="The Walk">
+      </a>
+    </div>
   </div>
 
-  <!-- Franja 3: acciones -->
+  <!-- Franja 3 -->
   <div class="franja-3">
-   <!--<a class="btn-abrir" href="Mapa-TheWalk.html" aria-label="Entrar a Partitura">EMPEZAR-BEGIN</a>--> 
-    <a class="btn-irATienda" href="https://www.acebuchdownload.com/" aria-label="Ir a la tienda">O IR A TIENDA - OR VISIT THE SHOP </a>
+    <a class="btn-irATienda" href="https://www.acebuchdownload.com/" aria-label="Ir a la tienda">O IR A TIENDA - OR VISIT THE SHOP</a>
   </div>
 
-  <div class="umbral-badge" aria-hidden="true">
+  <!-- ============================================ -->
+  <!-- BOTÓN DE SONIDO UNIVERSAL                    -->
+  <!-- ============================================ -->
+  <button id="sonido" class="sonido-btn breath large">◯</button>
+
+ <div class="umbral-badge" aria-hidden="true">
   UMBRAL <span data-umbral-readout>…</span>
-  </div>
-    
-   <script src="js/thewalk-umbral-core.js" defer></script>
+  </div>  
+  
+  <!-- ============================================ -->
+  <!-- SCRIPTS                                     -->
+  <!-- ============================================ -->
 
-   <script>
-   function inhabilitar(){
-          alert ("Obra creada por Acebuch bajo Licencia de copyright.")
-          return false
+  <script src="js/core.js" defer></script>
+  <script src="js/breath.js"></script>
+  <script src="js/arcilla-sound.js"></script>
+  <script src="js/sound-manager.js"></script>
+  <script src="js/sound-config.js"></script>
+
+   <!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.querySelector('video');
+      if (video) {
+        // Intenta reproducir automáticamente
+        video.play().catch(function(error) {
+          // Si falla el autoarranque (por políticas del navegador), 
+          // no hacemos nada - el atributo autoplay debería funcionar
+          console.log('Auto-play requeriría interacción del usuario');
+        });
       }
-      document.oncontextmenu = inhabilitar
+    });
   </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.getElementById('umbral-video');
+      if (video) {
+        video.play().catch(function(error) {
+          console.log('Auto-play requeriría interacción del usuario');
+        });
+      }
+      
+      // Notificar a SoundManager que la página ha cambiado
+      document.dispatchEvent(new CustomEvent('twlk:page:change'));
+    });
+  </script>-->
 </body>
 </html>

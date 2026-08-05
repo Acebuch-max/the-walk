@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>El Paseo / Partitura</title>
+
+  <link rel="stylesheet" href="css/core.css" />
+  <link rel="stylesheet" href="css/FiltroMadre.css" />
+  <link rel="stylesheet" href="css/Ptolomy_Vision.css"/>
+  <link rel="stylesheet" href="css/umbral.css" />
+
+</head>
+
+<body data-page="Partitura-III-template." class="layout mode-gallery layout mode-rhythm " data-tw-poem="" data-tw-partitura="III">
+
+
+
+  <main class="score" aria-label="Partitura Oráculo I">
+
+    <header class="score__head">
+
+    <p class="kicker-1">EL PASEO</p>
+    <h1 class="title">Template III</h1>
+    <p class="hint">Deconstrucción poética · Segundo oráculo</p>-
+     
+    </header>
+
+    <section class="ptolomeo ptolomeo--measures">
+     
+      <div class="rest r01" aria-hidden="true"style="--r:0; --g:0; --b:0; --a:.0; --img: url('../graficos/escala_05.jpg');--img-opacity: 0.0;--img-pos: center;--img-size: cover;"></div>
+      <div class="rest r02" aria-hidden="true"style="--r:0; --g:0; --b:0; --a:.0; --img: url('../graficos/escala_05.jpg');--img-opacity: 0.0;--img-pos: center;--img-size: cover;"></div>
+      <div class="rest r03" aria-hidden="true"style="--r:0; --g:0; --b:0; --a:.0; --img: url('../graficos/escala_05.jpg');--img-opacity: 0.25;--img-pos: center;--img-size: cover;"><p class="es"></p></div>
+      <div class="rest r04" aria-hidden="true"style="--r:0; --g:0; --b:0; --a:.0; --img: url('../graficos/escala_05.jpg');--img-opacity: 0.0;--img-pos: center;--img-size: cover;"></div>
+
+      <article class="trios p01"style="--r:0; --g:0; --b:0; --a:.0; --img: url('../graficos/escala_02_1.jpg');--img-opacity: 0.0;--img-pos: center;--img-size: cover;"><p class="es"></p><p class="es"></p><p class="es"></p></article>
+      <article class="trios p02"style="--r:100; --g:0; --b:0; --a:.0; --img: url('../graficos/escala_02.jpg');--img-opacity: 0.0;--img-pos: center;--img-size: cover;"><p class="es"></p><p class="es"></p><p class="es"></p></article>
+      <article class="trios p03"style="--r:0; --g:0; --b:0; --a:.0; --img: url('../graficos/escala_02.jpg');--img-opacity: 0.0;--img-pos: center;--img-size: cover;"><p class="es"></p><p class="es"></p><p class="es"></p><p class="es"></p></article>
+      <article class="trios p04"style="--r:0; --g:0; --b:0; --a:.0; --img: url('../graficos/escala_02_1.jpg');--img-opacity: .0;--img-pos: center;--img-size: cover;"><p class="es"></p><p class="es"></p><p class="es"></p></article>
+      <article class="trios p05"style="--r:0; --g:0; --b:0; --a:.0; --img: url('../graficos/escala_01.jpg');--img-opacity: .0;--img-pos: center;--img-size: cover;"><p class="es"></p><p class="es"></p><p class="es"></p></article>
+      <article class="trios p06"style="--r:0; --g:0; --b:0; --a:.0; --img: url('../graficos/escala_04.jpg');--img-opacity: .0;--img-pos: center;--img-size: cover;"><p class="es"></p><p class="es"></p><p class="es"></p></article>
+      <article class="trios p07"style="--r:0; --g:0; --b:0; --a:.0; --img: url('../graficos/escala_03.jpg');--img-opacity: .0;--img-pos: center;--img-size: cover;"></article>
+      
+      <a class="trios door d21" href="index.html">
+       <p class="es"style="color:white;">Sin centro</p>
+       <span class="door__tag"style="color:white;font-family: Ubuntu,"Helvetica Neue",>UMBRAL</span>
+      </a>
+
+      <a class="trios door d22" href="Puerta-Umbral.html">
+        <p class="es"style="color:white;">Cruzar</p>
+        <span class="door__tag"style="color:white;font-family: Ubuntu,"Helvetica Neue",>ELECCIÓN</span>
+      </a>
+
+      <a class="trios door d23" href="Puerta-Ritmo.html">
+        <p class="es"style="color:white;">Mirar y escuchar</p>
+        <span class="door__tag"style="color:white;font-family: Ubuntu,"Helvetica Neue",>RITMO</span>
+      </a>
+      
+      <a class="trios door d03"
+   href="Puerta-Umbral-#.html"
+   onclick="
+     const articles = Array.from(document.querySelectorAll('article.trios'));
+     const structure = {
+       source: document.title,
+       trios: articles.length,
+       rests: document.querySelectorAll('.rest').length,
+       verses: articles.map(a => a.querySelectorAll('p.es').length),
+       text: articles.map(a => a.innerText.trim()).join('\n')
+     };
+     sessionStorage.setItem('TW_SCORE_STRUCTURE', JSON.stringify(structure));
+   ">
+        <p class="es"style="color:white;font-family: Ubuntu,"Helvetica Neue",">Transcender</p>
+        <span class="door__tag"style="color:white;font-family: Ubuntu,"Helvetica Neue",>UMBRAL</span>
+      </a>
+      
+      <a class="trios door v21" href="Partitura-I.html">
+        <p class="es"style="color:white;">Comienzo</p>
+        <span class="door__tag"style="color:white;font-family: Ubuntu,"Helvetica Neue",>PARTITURA I</span>
+      </a>
+
+      <a class="trios door v22" href="Partitura-II.html">
+        <p class="es"style="color:white;">deriva</p>
+        <span class="door__tag"style="color:white;font-family: Ubuntu,"Helvetica Neue",>PARTITURA II</span>
+      </a>
+    
+    </section>
+
+    <footer class="score__foot">
+      <p class="sig">Todos los derecchos reservados a Acebuch. La idea de los Umbrales son una frontera donde el ingenio humano y la IA ChatGPT producen una auténtica simbiosis para alcanzar algo nuevo que de otro modo no prodría existir.
+    </footer>
+  </main>
+  
+  <div class="umbral-badge" aria-hidden="true">
+  UMBRAL <span data-umbral-readout>…</span>
+  </div>
+   
+   <script src="js/Partitura-II.js" defer></script>
+   <script src="js/thewalk-umbral-core.js" defer></script>
+
+   
+
+  <script src="js/tw-score-export.js"></script>
+
+   <script>
+   function inhabilitar(){
+          alert ("Obra creada por Acebuch bajo Licencia de copyright.")
+          return false
+      }
+      document.oncontextmenu = inhabilitar
+  </script>
+
+<script src="js/audioEngine.js"></script>
+<script src="js/audioController.js"></script>
+</body>
+</html>

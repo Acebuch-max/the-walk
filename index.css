@@ -1,0 +1,347 @@
+/* =========================
+   UMBRAL — index.css (limpio)
+   ========================= */
+
+/* Reset + base */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  /* Elimina scrollbars para pantalla completa */
+}
+body {
+  background: #dadada;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Grano (ruta relativa al CSS: ElVueloDeLosEstorninos/css/index.css) */
+  background-image: url("../../graficos/Ruido_1.jpg");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  background-position: center;
+
+  /* amortiguación */
+  background-color: #dddedc;
+  background-blend-mode: normal;
+}
+
+/* =========================
+   AJUSTES MANUALES (TOCA AQUÍ)
+   ========================= */
+:root {
+  /* Alturas de franjas - MODIFICADO PARA PANTALLA COMPLETA */
+  --f1: 0px;
+  /* Oculto */
+  --f2: 100vh;
+  /* Ocupa toda la pantalla */
+
+  /* Centrado de imagen (object-position) */
+  --img-offset-x: 0px;
+  --img-offset-y: 0px;
+
+  /* Ajuste fino del bloque de botones */
+  --btn-offset-y: 0px;
+
+  /* Espaciados */
+  --brand-pad: 0px;
+  --btn-gap: 0px;
+
+  /* Tipos */
+  --brand-size: 0rem;
+  --btn-size: 0rem;
+  --subbtn-size: 0rem;
+}
+
+/* =========================
+   LAYOUT GENERAL - MODIFICADO
+   ========================= */
+.layout {
+  min-height: 100vh;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 0px 1fr 0px;
+  /* Solo la franja 2 visible */
+  overflow: hidden;
+}
+
+/* ===============================
+   LANGUAGE SWITCH (UMBRAL)
+================================= */
+
+.lang-switch {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  gap: 12px;
+  font-family: system-ui, sans-serif;
+  letter-spacing: 0.08em;
+}
+
+.lang-switch .lang {
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: #444;
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(3px);
+  transition: all 0.3s ease;
+}
+
+.lang-switch .lang:hover {
+  color: #fd6400;
+  border-color: #fd6400;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .lang-switch {
+    top: 15px;
+    left: 15px;
+  }
+  .lang-switch .lang {
+    font-size: 0.8rem;
+    padding: 5px 8px;
+  }
+}
+
+/* =========================
+   FRANJA 1 — OCULTA (pantalla completa)
+   ========================= */
+.franja-1 {
+  display: none;
+  /* Oculto en pantalla completa */
+}
+
+.btn-tienda {
+  display: none;
+  /* Oculto en pantalla completa */
+}
+
+/* =========================
+   FRANJA 2 — VÍDEO + IMAGEN SUPERPUESTA
+   ========================= */
+.franja-2 {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  background: #f5f0e8;
+  /* Fondo claro para iluminar */
+}
+
+/* Contenedor de capas */
+.capas-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Capa de video */
+.capa-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: #000;
+  /* Fondo oscuro para el video */
+}
+
+/* Enlace que ocupa toda la pantalla */
+.umbral-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 10;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Estilos base para video e imagen */
+.umbral-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  will-change: transform, opacity;
+  transform-origin: center center;
+}
+
+/* Video (fondo) - SIN CONTROLES */
+.capa-video .umbral-img {
+  z-index: 1;
+  opacity: 1;
+}
+
+/* Ocultar controles nativos del video */
+video::-webkit-media-controls {
+  display: none !important;
+}
+video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+video::-webkit-media-controls-panel {
+  display: none !important;
+}
+video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+}
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+}
+
+/* Imagen superpuesta (sobre el video) */
+.img-superpuesta {
+  z-index: 5;
+  opacity: 0.35;
+  /* Ajusta para más/menos transparencia */
+  mix-blend-mode: normal;
+  /* Prueba: multiply, screen, overlay, soft-light, etc. */
+  background: rgba(255, 255, 255, 0.1);
+  /* Sutil iluminación */
+}
+
+/* Overlay para feedback visual */
+.umbral-link::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+  z-index: 6;
+  transition: background 0.3s ease;
+}
+
+.umbral-link:hover::after {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* =========================
+   FRANJA 3 — OCULTA (pantalla completa)
+   ========================= */
+.franja-3 {
+  display: none;
+  /* Oculto en pantalla completa */
+}
+
+.btn-abrir,
+.btn-irATienda {
+  display: none;
+  /* Oculto en pantalla completa */
+}
+
+/* =========================
+   SLIDESHOW (si se usa)
+   ========================= */
+.slideshow-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.slideshow-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.slideshow-container img.active {
+  opacity: 1;
+}
+
+/* =========================
+   MEDIA QUERIES - MANTIENEN PANTALLA COMPLETA
+   ========================= */
+
+/* Pantallas bajas */
+@media (max-height: 760px) {
+  :root {
+    --f2: 100vh;
+  }
+  .franja-2 {
+    height: 100vh;
+  }
+}
+
+/* Móvil */
+@media (max-width: 480px) {
+  :root {
+    --f2: 100vh;
+  }
+  .franja-2 {
+    height: 100vh;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+  :root {
+    --f2: 100vh;
+  }
+  .franja-2 {
+    height: 100vh;
+  }
+}
+
+/* =========================
+   PORTADA BREATH - Transiciones y movimiento
+   ========================= */
+
+/* Contenedor de la imagen (necesario para las transiciones) */
+.franja-2 {
+  position: relative;
+  overflow: hidden;
+}
+
+/* La imagen principal */
+.capa-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  will-change: transform, opacity;
+  transform-origin: center center;
+}
+
+/* El contenedor del enlace */
+.umbral-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}

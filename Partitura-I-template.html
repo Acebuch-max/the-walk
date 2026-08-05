@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>El Paseo / Partitura I</title>
+  <title>El Paseo / Partitura</title>
   
   <link rel="stylesheet" href="css/core.css" />
   <link rel="stylesheet" href="css/FiltroMadre.css" />
@@ -13,8 +13,8 @@
   <link rel="stylesheet" href="css/umbral.css" />
 </head>
 
-<body class="layout mode-gallery layout mode-rhythm " data-tw-poem="" data-tw-partitura="I">
-<!--<body class="layout mode-painting">-->
+<body data-page="Partitura-I-template" class="layout mode-gallery layout mode-rhythm " data-tw-poem="" data-tw-partitura="I">
+<!--<body data-page="Partitura-I-template" class="layout mode-painting">-->
 
 
   <main class="score" aria-label="Partitura Oráculo I" >
@@ -42,6 +42,19 @@
       <article class="trios p05"style="--r:0; --g:0; --b:0; --a:.0; --img: url('../graficos/escala_01.jpg');--img-opacity: .0;--img-pos: center;--img-size: cover;"><p class="es"></p><p class="es"></p><p class="es"></p></article>
       <article class="trios p06"style="--r:0; --g:0; --b:0; --a:.0; --img: url('../graficos/escala_04.jpg');--img-opacity: .0;--img-pos: center;--img-size: cover;"><p class="es"></p><p class="es"></p><p class="es"></p></article>
       <article class="trios p07"style="--r:0; --g:0; --b:0; --a:.0; --img: url('../graficos/escala_03.jpg');--img-opacity: .0;--img-pos: center;--img-size: cover;"></article>
+
+      
+      <a class="trios door v01" href="Partitura-II.html">
+        
+        <p class="es"style="color:white;font-family: Ubuntu,"Helvetica Neue",">Variación</p>
+        <span class="door__tag"style="color:white;font-family: Ubuntu,"Helvetica Neue", >PARTITURA II</span>
+      </a>
+
+      <a class="trios door v02" href="Partitura-III.html">
+        
+        <p class="es"style="color:white;font-family: Ubuntu,"Helvetica Neue",">Dar vueltas</p>
+        <span class="door__tag"style="color:white;font-family: Ubuntu,"Helvetica Neue",>PARTITURA III</span>
+      </a>
       
       <a class="trios door d01" href="index.html">
         
@@ -50,11 +63,10 @@
         
       </a>
 
-      <a class="trios door d02" href="Puerta-Ritmo.html">
-        
+     <a class="trios door d02" href="Puerta-Ritmo.html">
         <p class="es"style="color:white;font-family: Ubuntu,"Helvetica Neue",">Mirar y escuchar</p>
         <span class="door__tag"style="color:white;font-family: Ubuntu,"Helvetica Neue",>RITMO</span>
-      </a>
+     </a>
 
       <a class="trios door d03"
    href="Puerta-Umbral-#.html"
@@ -97,6 +109,9 @@
       }
       document.oncontextmenu = inhabilitar
   </script>
+
+<script src="js/audioEngine.js"></script>
+<script src="js/audioController.js"></script>
 
 </body>
 </html>
